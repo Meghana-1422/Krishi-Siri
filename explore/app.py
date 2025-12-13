@@ -8,16 +8,15 @@ import io
 import os
 
 app = Flask(__name__)
-CORS(app)  # allow frontend to access backend
+CORS(app)  
 
-# ===================== LOAD MODELS =====================
 CROP_MODEL_PATH = os.path.join("models", "crop_model.joblib")
 DISEASE_MODEL_PATH = os.path.join("models", "disease_model.joblib")
 
 crop_model = joblib.load(CROP_MODEL_PATH)
 disease_model = tf.keras.models.load_model(DISEASE_MODEL_PATH)
 
-# ===================== HELPER FUNCTIONS =====================
+
 def predict_crop_model(data):
     """
     data = {"cropType": "Food Grain", "soilType": "Loamy", "rainfall": 300}
@@ -26,7 +25,6 @@ def predict_crop_model(data):
     soil_type = data.get("soilType", "")
     rainfall = float(data.get("rainfall", 0))
 
-    # Simple encoding (example only)
     crop_dict = {"Food Grain": 1, "Pulses": 2, "Oilseeds": 3, "Cash Crop": 4}
     soil_dict = {"Clay": 1, "Loamy": 2, "Sandy": 3, "Red": 4, "Black": 5}
 
