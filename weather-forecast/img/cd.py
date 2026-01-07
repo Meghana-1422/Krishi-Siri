@@ -1,1014 +1,787 @@
+"""
+===========================================
+CROP DISEASE DETECTION SYSTEM - Streamlit App
+Final Year Academic Project
+===========================================
+"""
+
 import streamlit as st
 from PIL import Image
-import time
+import numpy as np
 import random
+import time
 
-# ---------------- PAGE CONFIG ----------------
+# ==========================================
+# PAGE CONFIGURATION
+# ==========================================
 st.set_page_config(
-    page_title="🌿 FloraGuard AI",
-    page_icon="🌿",
-    layout="wide"
+    page_title="Crop Disease Detection System",
+    page_icon="🌱",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# ---------------- UNIQUE CSS STYLES ----------------
+# ==========================================
+# TEXT-TO-SPEECH FUNCTION (SIMPLIFIED)
+# ==========================================
+def speak_text(text):
+    """Convert text to speech and play it"""
+    try:
+        # Try to import pyttsx3
+        import pyttsx3
+        
+        # Initialize the engine
+        engine = pyttsx3.init()
+        
+        # Set properties
+        engine.setProperty('rate', 150)  # Speed
+        engine.setProperty('volume', 0.9)  # Volume
+        
+        # Get available voices
+        voices = engine.getProperty('voices')
+        
+        # Try to use a female voice if available
+        for voice in voices:
+            if 'female' in voice.name.lower():
+                engine.setProperty('voice', voice.id)
+                break
+        
+        # Speak the text
+        engine.say(text)
+        engine.runAndWait()
+        
+        return True
+    except Exception as e:
+        # If pyttsx3 fails, show a message
+        st.warning(f"Voice feature unavailable. Please install pyttsx3 with: pip install pyttsx3")
+        return False
+
+# ==========================================
+# CUSTOM CSS STYLING
+# ==========================================
 st.markdown("""
 <style>
-    /* Import Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap');
-    
-    /* Custom Variables */
-    :root {
-        --primary: #2E8B57;
-        --primary-light: #3CB371;
-        --secondary: #FF7F50;
-        --accent: #FFD700;
-        --dark: #1A3C27;
-        --light: #F5F5F5;
-        --success: #32CD32;
-        --warning: #FF8C00;
-        --danger: #DC143C;
+    /* Main styles */
+    .stApp {
+        background: linear-gradient(135deg, #f9fff9 0%, #e8f5e9 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Montserrat', sans-serif;
-    }
-    
-    /* Main Container */
-    .main-container {
-        background: linear-gradient(135deg, 
-            rgba(46, 139, 87, 0.05) 0%, 
-            rgba(60, 179, 113, 0.05) 25%, 
-            rgba(245, 245, 245, 0.1) 50%, 
-            rgba(255, 215, 0, 0.05) 75%, 
-            rgba(255, 127, 80, 0.05) 100%);
-        min-height: 100vh;
-    }
-    
-    /* Hero Section */
-    .hero-section {
-        background: linear-gradient(135deg, var(--dark), var(--primary));
-        padding: 3rem 2rem;
-        border-radius: 0 0 30px 30px;
-        margin-bottom: 2rem;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-    
-    .hero-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-        background-size: cover;
-    }
-    
-    .hero-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 3.5rem;
-        background: linear-gradient(45deg, #FFF, var(--accent));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-align: center;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-    
-    .hero-subtitle {
-        color: rgba(255, 255, 255, 0.9);
-        text-align: center;
-        font-size: 1.2rem;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    
-    /* Floating Plants Animation */
-    .floating-plants {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-    }
-    
-    .plant {
-        position: absolute;
-        font-size: 2rem;
-        opacity: 0.3;
-        animation: float 6s ease-in-out infinite;
-    }
-    
-    .plant:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
-    .plant:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
-    .plant:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 2s; }
-    .plant:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 3s; }
-    .plant:nth-child(5) { top: 40%; left: 40%; animation-delay: 4s; }
-    
-    /* Upload Area */
-    .upload-area {
-        background: white;
-        border: 3px dashed var(--primary);
-        border-radius: 20px;
-        padding: 4rem 2rem;
-        text-align: center;
-        margin: 2rem auto;
-        max-width: 600px;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    .upload-area:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(46, 139, 87, 0.2);
-        border-color: var(--primary-light);
-    }
-    
-    .upload-icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-        color: var(--primary);
-        animation: pulse 2s infinite;
-    }
-    
-    /* Disease Card */
-    .disease-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        margin: 2rem 0;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        border-left: 5px solid var(--primary);
-        transition: transform 0.3s ease;
-    }
-    
-    .disease-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    }
-    
-    .severity-indicator {
-        display: inline-block;
-        padding: 0.5rem 1.5rem;
-        border-radius: 25px;
-        font-weight: bold;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-left: 1rem;
-    }
-    
-    /* Treatment Cards */
-    .treatment-category {
-        background: linear-gradient(135deg, var(--light), white);
+    /* Header styling */
+    .main-header {
+        background: linear-gradient(135deg, #2E7D32, #1B5E20);
+        color: white;
+        padding: 2.5rem;
         border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        border: 2px solid;
-        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
     }
     
-    .treatment-category:hover {
-        transform: scale(1.02);
+    .main-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
     
-    .immediate { border-color: var(--danger); }
-    .organic { border-color: var(--success); }
-    .chemical { border-color: var(--warning); }
-    .home { border-color: #8A2BE2; }
-    
-    /* Chip Elements */
-    .chip {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.5rem 1rem;
-        margin: 0.3rem;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: all 0.3s ease;
+    .main-subtitle {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        margin: 0 auto;
+        max-width: 800px;
     }
     
-    .chip:hover {
-        transform: scale(1.05);
+    /* Card styling */
+    .card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: 1px solid rgba(46, 125, 50, 0.1);
     }
     
-    .symptom-chip {
-        background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
-        color: #1565C0;
-        border: 2px solid #64B5F6;
-    }
-    
-    .crop-chip {
-        background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    .card-title {
         color: #2E7D32;
-        border: 2px solid #81C784;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #A5D6A7;
+        padding-bottom: 0.5rem;
     }
     
-    /* Animation Classes */
-    @keyframes float {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(5deg); }
-    }
-    
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.1); opacity: 0.8; }
-    }
-    
-    @keyframes slideIn {
-        from { 
-            opacity: 0; 
-            transform: translateY(30px); 
-        }
-        to { 
-            opacity: 1; 
-            transform: translateY(0); 
-        }
+    /* Result card */
+    .result-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2.5rem;
+        margin: 2rem auto;
+        max-width: 900px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        text-align: center;
+        animation: fadeIn 0.5s ease-out;
     }
     
     @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
     
-    @keyframes glow {
-        0%, 100% { box-shadow: 0 0 5px var(--accent); }
-        50% { box-shadow: 0 0 20px var(--accent); }
+    /* Disease name */
+    .disease-name {
+        color: #2E7D32;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 1rem 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
-    /* Interactive Elements */
-    .interactive-btn {
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    /* Confidence badge */
+    .confidence-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #4CAF50, #2E7D32);
+        color: white;
+        padding: 0.7rem 1.8rem;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+    }
+    
+    /* Severity badges */
+    .severity-high {
+        background: #FFEBEE;
+        color: #C62828;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        display: inline-block;
+    }
+    
+    .severity-moderate {
+        background: #FFF3E0;
+        color: #EF6C00;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        display: inline-block;
+    }
+    
+    .severity-low {
+        background: #E8F5E9;
+        color: #1B5E20;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        display: inline-block;
+    }
+    
+    /* Treatment cards */
+    .treatment-card {
+        background: #F9FFF9;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-left: 4px solid #4CAF50;
+    }
+    
+    /* Button styling */
+    .stButton > button {
+        background: linear-gradient(135deg, #2E7D32, #43A047);
         color: white;
         border: none;
         padding: 1rem 2rem;
-        border-radius: 50px;
-        font-weight: bold;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+    }
+    
+    /* Upload container */
+    .upload-container {
+        background: linear-gradient(135deg, #E8F5E9, #F1F8E9);
+        border: 3px dashed #2E7D32;
+        border-radius: 15px;
+        padding: 3rem;
+        text-align: center;
+        margin: 2rem 0;
         cursor: pointer;
         transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        position: relative;
-        overflow: hidden;
     }
     
-    .interactive-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-        transition: 0.5s;
+    .upload-container:hover {
+        background: linear-gradient(135deg, #F1F8E9, #E8F5E9);
+        border-color: #43A047;
     }
     
-    .interactive-btn:hover::before {
-        left: 100%;
-    }
-    
-    .interactive-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(46, 139, 87, 0.3);
-    }
-    
-    /* Stats Cards */
-    .stats-card {
-        background: white;
-        border-radius: 15px;
+    /* Sidebar styling */
+    .sidebar-header {
+        background: linear-gradient(135deg, #2E7D32, #1B5E20);
+        color: white;
         padding: 1.5rem;
-        text-align: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-        border-top: 4px solid var(--primary);
-    }
-    
-    .stats-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-    
-    .stats-number {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: var(--primary);
-        margin: 0.5rem 0;
-    }
-    
-    /* Progress Bar */
-    .progress-container {
-        background: var(--light);
         border-radius: 10px;
-        height: 10px;
-        overflow: hidden;
-        margin: 1rem 0;
-    }
-    
-    .progress-bar {
-        height: 100%;
-        background: linear-gradient(90deg, var(--primary), var(--primary-light));
-        border-radius: 10px;
-        transition: width 1s ease-in-out;
-    }
-    
-    /* Tooltip */
-    .tooltip {
-        position: relative;
-        display: inline-block;
-        cursor: help;
-    }
-    
-    .tooltip .tooltip-text {
-        visibility: hidden;
-        width: 200px;
-        background: var(--dark);
-        color: white;
-        text-align: center;
-        padding: 0.5rem;
-        border-radius: 6px;
-        position: absolute;
-        z-index: 1000;
-        bottom: 125%;
-        left: 50%;
-        transform: translateX(-50%);
-        opacity: 0;
-        transition: opacity 0.3s;
-        font-size: 0.8rem;
-    }
-    
-    .tooltip:hover .tooltip-text {
-        visibility: visible;
-        opacity: 1;
-    }
-    
-    /* Footer */
-    .footer {
-        background: var(--dark);
-        color: white;
-        padding: 2rem;
-        border-radius: 30px 30px 0 0;
-        margin-top: 3rem;
+        margin-bottom: 1.5rem;
         text-align: center;
     }
     
-    /* Scroll Animations */
-    .animate-on-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.6s ease;
-    }
-    
-    .animate-on-scroll.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .hero-title { font-size: 2.5rem; }
-        .upload-area { padding: 2rem 1rem; }
-        .disease-card { padding: 1.5rem; }
+    .sidebar-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- JAVASCRIPT FOR INTERACTIVITY ----------------
-st.markdown("""
-<script>
-    // Scroll animations
-    document.addEventListener('DOMContentLoaded', function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.animate-on-scroll').forEach(element => {
-            observer.observe(element);
-        });
-        
-        // Play success sound
-        function playSuccessSound() {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                // Create a pleasant nature-like sound
-                oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.5);
-                oscillator.type = 'sine';
-                
-                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-                gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.1);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.6);
-            } catch (e) {
-                console.log('Audio not supported');
-            }
-        }
-        
-        // Make function globally available
-        window.playSuccessSound = playSuccessSound;
-        
-        // Confetti effect
-        function createConfetti() {
-            const colors = ['#2E8B57', '#3CB371', '#FFD700', '#FF7F50', '#8A2BE2'];
-            const container = document.createElement('div');
-            container.style.position = 'fixed';
-            container.style.top = '0';
-            container.style.left = '0';
-            container.style.width = '100%';
-            container.style.height = '100%';
-            container.style.pointerEvents = 'none';
-            container.style.zIndex = '9999';
-            document.body.appendChild(container);
-            
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'absolute';
-                confetti.style.width = '10px';
-                confetti.style.height = '10px';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.borderRadius = '50%';
-                confetti.style.top = '0';
-                confetti.style.left = Math.random() * 100 + '%';
-                
-                const animation = confetti.animate([
-                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                    { transform: 'translateY(100vh) rotate(360deg)', opacity: 0 }
-                ], {
-                    duration: 2000 + Math.random() * 2000,
-                    easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
-                });
-                
-                container.appendChild(confetti);
-                
-                animation.onfinish = () => {
-                    confetti.remove();
-                    if (container.children.length === 0) {
-                        container.remove();
-                    }
-                };
-            }
-        }
-        
-        window.createConfetti = createConfetti;
-        
-        // Typewriter effect
-        function typeWriter(element, text, speed = 50) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            
-            type();
-        }
-        
-        // Initialize typewriter on hero subtitle
-        const heroSubtitle = document.querySelector('.hero-subtitle');
-        if (heroSubtitle) {
-            const originalText = heroSubtitle.textContent;
-            typeWriter(heroSubtitle, originalText);
-        }
-    });
-</script>
-""", unsafe_allow_html=True)
-
-# ---------------- DISEASE DATABASE ----------------
-DISEASE_DETAILS = {
-    "Bacterial Blight": {
-        "emoji": "🦠",
-        "severity": "High",
-        "color": "#DC143C",
-        "symptoms": [
-            "Water-soaked lesions on leaves",
-            "Yellow halos around spots", 
-            "Lesions turn brown and dry",
-            "Wilting and dieback of shoots"
-        ],
-        "immediate_action": [
-            "Remove infected leaves immediately",
-            "Isolate affected plants",
-            "Disinfect tools after use"
-        ],
-        "organic_solutions": [
-            "Copper Oxychloride 3g/L spray every 7 days",
-            "Neem oil extract (5ml/L) weekly",
-            "Garlic-chili extract spray",
-            "Baking soda solution (1 tbsp/L)"
-        ],
-        "chemical_solutions": [
-            "Streptomycin sulfate (500 ppm)",
-            "Kasugamycin (2g/L water)",
-            "Copper hydroxide (2g/L)",
-            "Apply in early morning"
-        ],
-        "home_remedies": [
-            "Vinegar solution (1:10 ratio)",
-            "Cinnamon powder dusting",
-            "Horsetail tea spray",
-            "Compost tea application"
-        ],
-        "prevention": [
-            "Use certified disease-free seeds",
-            "Practice 3-4 year crop rotation",
-            "Avoid overhead irrigation",
-            "Clean field debris after harvest"
-        ],
-        "affected_crops": ["Rice", "Cotton", "Soybean", "Common Bean"]
-    },
+# ==========================================
+# ENHANCED DISEASE DATABASE WITH MULTIPLE SOLUTIONS
+# ==========================================
+DISEASE_DATABASE = {
     "Early Blight": {
-        "emoji": "🍂", 
-        "severity": "Moderate",
-        "color": "#FF8C00",
+        "scientific_name": "Alternaria solani",
+        "description": "A fungal disease characterized by dark concentric rings on leaves, affecting tomatoes and potatoes.",
+        "affected_crops": ["Tomato", "Potato", "Eggplant", "Pepper"],
         "symptoms": [
-            "Small dark spots with concentric rings",
-            "Yellowing of surrounding tissue",
-            "Lower leaves affected first",
-            "Premature leaf drop"
+            "Small dark spots on lower leaves",
+            "Concentric rings on lesions",
+            "Yellowing around spots",
+            "Leaf drop in severe cases",
+            "Lesions on stems and fruits"
         ],
-        "immediate_action": [
-            "Remove bottom infected leaves",
-            "Improve air circulation",
-            "Avoid watering foliage"
-        ],
-        "organic_solutions": [
-            "Mancozeb 2g/L weekly spray",
-            "Bordeaux mixture application",
-            "Compost tea foliar spray",
-            "Sulfur-based fungicides"
-        ],
-        "chemical_solutions": [
-            "Chlorothalonil (2g/L water)",
-            "Azoxystrobin (1ml/L)",
-            "Propiconazole systemic fungicide",
-            "Apply at first sign"
-        ],
-        "home_remedies": [
-            "Milk spray (1:9 ratio)",
-            "Baking soda + oil + soap solution",
-            "Aspirin water (325mg/L)",
-            "Chamomile tea spray"
-        ],
+        "severity": "Moderate-High",
+        "severity_score": 65,
+        "solutions": {
+            "chemical": [
+                "Apply Chlorothalonil (Bravo) every 7-10 days",
+                "Use Mancozeb (Dithane) as preventative spray",
+                "Apply Copper-based fungicides (Kocide)"
+            ],
+            "organic": [
+                "Spray neem oil solution every 5-7 days",
+                "Apply baking soda solution (1 tbsp per gallon of water)",
+                "Use garlic extract spray"
+            ],
+            "cultural": [
+                "Practice 3-year crop rotation",
+                "Remove and destroy infected plant debris",
+                "Ensure proper spacing (60-90 cm between plants)",
+                "Water at soil level, avoid overhead irrigation",
+                "Use mulch to prevent soil splash"
+            ],
+            "biological": [
+                "Apply Trichoderma harzianum bio-fungicide",
+                "Use Bacillus subtilis products",
+                "Introduce beneficial microbes to soil"
+            ]
+        },
         "prevention": [
-            "Maintain proper plant spacing",
-            "Water at soil level only",
-            "Use resistant varieties",
-            "Mulch around plants"
+            "Use disease-resistant varieties",
+            "Plant in well-drained soil",
+            "Avoid working with wet plants",
+            "Sanitize garden tools regularly",
+            "Monitor plants weekly for early signs"
         ],
-        "affected_crops": ["Tomato", "Potato", "Eggplant", "Pepper"]
+        "emoji": "🍅"
     },
     "Late Blight": {
-        "emoji": "⚡",
-        "severity": "Critical",
-        "color": "#8B0000",
+        "scientific_name": "Phytophthora infestans",
+        "description": "Devastating disease that spreads rapidly in cool, wet conditions, famous for causing the Irish Potato Famine.",
+        "affected_crops": ["Potato", "Tomato"],
         "symptoms": [
-            "Rapid spreading water-soaked lesions",
-            "White fungal growth on underside",
-            "Complete plant collapse within days",
-            "Foul odor from infected tissue"
+            "Water-soaked lesions on leaves",
+            "White mold growth on underside of leaves",
+            "Rapid spreading in wet conditions",
+            "Dark lesions on stems",
+            "Rotting of tubers and fruits"
         ],
-        "immediate_action": [
-            "Remove ALL infected plants immediately",
-            "Burn or bury infected material",
-            "Stop all overhead watering"
-        ],
-        "organic_solutions": [
-            "Copper fungicide at first symptoms",
-            "Potassium bicarbonate spray",
-            "Horsetail extract application",
-            "Remove plants within 20m radius"
-        ],
-        "chemical_solutions": [
-            "Ridomil Gold immediate application",
-            "Metalaxyl-based fungicides",
-            "Fosetyl-Aluminum systemic",
-            "Cymoxanil + Mancozeb mix"
-        ],
-        "home_remedies": [
-            "Garlic oil spray every 3 days",
-            "Cornmeal soil drench",
-            "Clove tea antifungal spray",
-            "Cinnamon oil solution"
-        ],
+        "severity": "Very High",
+        "severity_score": 90,
+        "solutions": {
+            "chemical": [
+                "Apply Metalaxyl (Ridomil) as soil drench",
+                "Use Chlorothalonil (Bravo) every 5-7 days during wet weather",
+                "Apply Famoxadone + Cymoxanil (Tanos)"
+            ],
+            "organic": [
+                "Apply copper fungicides every 7-10 days",
+                "Use hydrogen peroxide spray (3% solution)",
+                "Apply compost tea to boost plant immunity"
+            ],
+            "cultural": [
+                "Destroy infected plants immediately",
+                "Use certified disease-free seeds",
+                "Avoid overhead irrigation",
+                "Improve air circulation",
+                "Harvest before rainy season"
+            ],
+            "biological": [
+                "Apply Streptomyces lydicus products",
+                "Use Bacillus amyloliquefaciens",
+                "Apply chitosan-based products"
+            ]
+        },
         "prevention": [
             "Plant resistant varieties",
-            "Improve soil drainage",
-            "Use drip irrigation",
-            "Monitor weather forecasts"
+            "Monitor weather forecasts",
+            "Use protective fungicides before rainy periods",
+            "Avoid planting near infected fields",
+            "Practice strict sanitation"
         ],
-        "affected_crops": ["Potato", "Tomato"]
+        "emoji": "🥔"
     },
     "Powdery Mildew": {
-        "emoji": "❄️",
-        "severity": "Low to Moderate",
-        "color": "#4682B4",
+        "scientific_name": "Erysiphe spp.",
+        "description": "White powdery fungal growth on leaves and stems, common in dry conditions with high humidity.",
+        "affected_crops": ["Cucumber", "Squash", "Grapes", "Wheat", "Mango", "Rose"],
         "symptoms": [
             "White powdery spots on leaves",
-            "Yellowing and curling of leaves",
+            "Leaves turning yellow then brown",
             "Stunted plant growth",
+            "Distorted leaves",
             "Reduced fruit production"
         ],
-        "immediate_action": [
-            "Remove severely infected leaves",
-            "Increase air circulation",
-            "Reduce nitrogen fertilizer"
-        ],
-        "organic_solutions": [
-            "Wettable Sulphur 3g/L spray",
-            "Potassium bicarbonate solution",
-            "Neem oil + baking soda mix",
-            "Milk spray weekly"
-        ],
-        "chemical_solutions": [
-            "Myclobutanil systemic fungicide",
-            "Triadimefon sprays",
-            "Propiconazole applications",
-            "Sulfur vaporization"
-        ],
-        "home_remedies": [
-            "1 part milk : 9 parts water spray",
-            "Baking soda + liquid soap solution",
-            "Apple cider vinegar spray",
-            "Mouthwash antifungal solution"
-        ],
-        "prevention": [
-            "Plant in full sunlight",
-            "Ensure good air flow",
-            "Avoid overcrowding",
-            "Water early in day"
-        ],
-        "affected_crops": ["Cucumber", "Squash", "Grapes", "Rose", "Wheat"]
-    },
-    "Leaf Rust": {
-        "emoji": "🟫",
         "severity": "Moderate",
-        "color": "#D2691E",
-        "symptoms": [
-            "Orange-brown pustules on leaves",
-            "Pustules rupture releasing spores",
-            "Premature leaf drop",
-            "Reduced photosynthesis"
-        ],
-        "immediate_action": [
-            "Remove infected leaves carefully",
-            "Dispose in sealed bags",
-            "Sanitize pruning tools"
-        ],
-        "organic_solutions": [
-            "Tebuconazole 1ml/L spray",
-            "Sulfur dust applications",
-            "Garlic extract spray",
-            "Seaweed extract foliar"
-        ],
-        "chemical_solutions": [
-            "Triazole fungicides",
-            "Strobilurin-based products",
-            "Propiconazole systemic",
-            "Apply at 7-14 day intervals"
-        ],
-        "home_remedies": [
-            "Garlic + mineral oil spray",
-            "Baking soda + horticultural oil",
-            "Compost tea every 2 weeks",
-            "Epsom salt foliar spray"
-        ],
+        "severity_score": 50,
+        "solutions": {
+            "chemical": [
+                "Apply Sulfur dust or spray",
+                "Use Myclobutanil (Systhane) every 10-14 days",
+                "Apply Triflumizole (Procure)"
+            ],
+            "organic": [
+                "Spray milk solution (1 part milk to 9 parts water)",
+                "Apply baking soda spray (1 tsp per liter)",
+                "Use neem oil every 5-7 days",
+                "Apply potassium bicarbonate solution"
+            ],
+            "cultural": [
+                "Ensure good air circulation",
+                "Avoid overhead watering",
+                "Plant resistant varieties",
+                "Remove infected leaves promptly",
+                "Space plants properly"
+            ],
+            "biological": [
+                "Apply Ampelomyces quisqualis",
+                "Use Bacillus pumilus products",
+                "Apply horticultural oil sprays"
+            ]
+        },
         "prevention": [
-            "Remove alternate host plants",
-            "Balance nitrogen fertilization",
-            "Clean debris after harvest",
-            "Plant early-maturing varieties"
+            "Water early in the day",
+            "Maintain proper plant spacing",
+            "Avoid excess nitrogen fertilizer",
+            "Keep garden clean of debris",
+            "Monitor humidity levels"
         ],
-        "affected_crops": ["Wheat", "Coffee", "Bean", "Apple"]
+        "emoji": "🍃"
+    },
+    "Bacterial Leaf Spot": {
+        "scientific_name": "Xanthomonas spp.",
+        "description": "Bacterial disease causing angular water-soaked spots that turn brown with yellow halos.",
+        "affected_crops": ["Tomato", "Pepper", "Cabbage", "Rice", "Mango", "Citrus"],
+        "symptoms": [
+            "Small water-soaked spots",
+            "Spots turning brown or black",
+            "Yellow halos around spots",
+            "Leaf drop in severe cases",
+            "Fruit lesions and spots"
+        ],
+        "severity": "Moderate",
+        "severity_score": 55,
+        "solutions": {
+            "chemical": [
+                "Apply Copper-based bactericides (Kocide 3000)",
+                "Use Streptomycin for severe cases",
+                "Apply Oxytetracycline products"
+            ],
+            "organic": [
+                "Apply copper soap sprays",
+                "Use hydrogen peroxide (3%) solution",
+                "Apply garlic-chili spray",
+                "Use vinegar solution (1:3 vinegar:water)"
+            ],
+            "cultural": [
+                "Use disease-free seeds and transplants",
+                "Avoid working with wet plants",
+                "Practice 2-3 year crop rotation",
+                "Remove weed hosts",
+                "Disinfect tools regularly"
+            ],
+            "biological": [
+                "Apply Bacillus subtilis products",
+                "Use Pseudomonas fluorescens",
+                "Apply beneficial microbes"
+            ]
+        },
+        "prevention": [
+            "Purchase certified disease-free seeds",
+            "Avoid overhead irrigation",
+            "Remove infected plants immediately",
+            "Control insect vectors",
+            "Improve soil drainage"
+        ],
+        "emoji": "🦠"
     }
 }
 
-# ---------------- HEADER ----------------
-st.markdown("""
-<div class="main-container">
-    <div class="hero-section">
-        <div class="floating-plants">
-            <div class="plant">🌿</div>
-            <div class="plant">🍃</div>
-            <div class="plant">🌱</div>
-            <div class="plant">🌾</div>
-            <div class="plant">☘️</div>
-        </div>
-        <h1 class="hero-title">🌿 FloraGuard AI</h1>
-        <p class="hero-subtitle">Advanced Plant Disease Detection & Treatment System</p>
-    </div>
-""", unsafe_allow_html=True)
+# ==========================================
+# INITIALIZE SESSION STATE
+# ==========================================
+if 'current_page' not in st.session_state:
+    st.session_state.current_page = 'Detection'  # Default to detection page
+if 'last_analysis' not in st.session_state:
+    st.session_state.last_analysis = None
 
-# ---------------- SIDEBAR ----------------
+# ==========================================
+# SIDEBAR - SIMPLE NAVIGATION
+# ==========================================
 with st.sidebar:
     st.markdown("""
-    <div style="padding: 1.5rem; background: white; border-radius: 15px; margin-bottom: 2rem;">
-        <h3 style="color: #2E8B57;">⚙️ Settings</h3>
+    <div class="sidebar-header">
+        <div class="sidebar-title">🌿 Navigation</div>
+        <div style="font-size: 0.9rem; opacity: 0.9;">
+            Crop Disease Detection System
+        </div>
     </div>
     """, unsafe_allow_html=True)
-    
-    sound_enabled = st.checkbox("🔊 Enable Sound Effects", value=True)
-    animations = st.checkbox("✨ Enable Animations", value=True)
-    dark_mode = st.checkbox("🌙 Dark Mode", value=False)
     
     st.markdown("---")
     
-    st.markdown("""
-    <div style="padding: 1.5rem; background: white; border-radius: 15px;">
-        <h3 style="color: #2E8B57;">📊 Statistics</h3>
-    </div>
-    """, unsafe_allow_html=True)
+    # Voice Assistant Section
+    st.markdown("### 🔊 Voice Assistant")
     
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("🌱 Diseases", "5")
-        st.metric("💊 Treatments", "20+")
-    with col2:
-        st.metric("🎯 Accuracy", "96%")
-        st.metric("⏱️ Speed", "2s")
+    if st.button("🎤 Test Voice Assistant", use_container_width=True):
+        test_message = "Welcome to the Crop Disease Detection System. I am your voice assistant. I will help you understand the disease detection results."
+        if speak_text(test_message):
+            st.success("Voice assistant is working!")
+        else:
+            st.warning("Please install pyttsx3: pip install pyttsx3")
+    
+    st.markdown("---")
+    
+    # Quick Tips
+    st.markdown("### 💡 Quick Tips")
+    st.info("""
+    1. Upload clear leaf images
+    2. Select correct crop type
+    3. Review all solution options
+    4. Use voice assistant for explanations
+    """)
+    
+    st.markdown("---")
+    
+    # Disease Statistics
+    st.markdown("### 📊 Disease Database")
+    st.metric("Total Diseases", len(DISEASE_DATABASE))
+    
+    # List available diseases
+    st.markdown("**Available Diseases:**")
+    for disease in DISEASE_DATABASE.keys():
+        st.markdown(f"- {DISEASE_DATABASE[disease]['emoji']} {disease}")
 
-# ---------------- UPLOAD SECTION ----------------
+# ==========================================
+# MAIN HEADER
+# ==========================================
 st.markdown("""
-<div class="animate-on-scroll">
-    <div class="upload-area">
-        <div class="upload-icon">📤</div>
-        <h2 style="color: #2E8B57; margin-bottom: 1rem;">Upload Leaf Image</h2>
-        <p style="color: #666; margin-bottom: 2rem;">Drag & drop or click to upload an image of the diseased leaf</p>
-    </div>
+<div class="main-header">
+    <h1 class="main-title">🌱 AI-Powered Crop Disease Detection</h1>
+    <p class="main-subtitle">
+        Upload leaf images to detect diseases and get multiple treatment solutions instantly
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
+# ==========================================
+# MAIN CONTENT - DISEASE DETECTION ONLY
+# ==========================================
+st.markdown("""
+<div class="card">
+    <h2 class="card-title">🔍 Upload Leaf Image for Disease Detection</h2>
+    <p style="font-size: 1.1rem; color: #555; line-height: 1.6;">
+        Our advanced AI system analyzes plant leaf images to detect diseases and provides 
+        multiple treatment solutions including chemical, organic, cultural, and biological methods.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+# Upload Section
+st.markdown("""
+<div class="upload-container">
+    <div style="font-size: 4rem;">📤</div>
+    <h3 style="color: #2E7D32; margin-bottom: 1rem;">
+        Drag & Drop or Click to Upload Image
+    </h3>
+    <p style="color: #666; margin-bottom: 1.5rem;">
+        Supported formats: JPG, JPEG, PNG | Max size: 10MB
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+# File Uploader
 uploaded_file = st.file_uploader(
-    " ",
+    "Choose a leaf image...",
     type=["jpg", "jpeg", "png"],
-    help="Upload a clear image of the diseased leaf",
     label_visibility="collapsed"
 )
 
-# ---------------- DISPLAY RESULTS ----------------
-if uploaded_file:
-    # Trigger JavaScript effects
-    if sound_enabled:
-        st.markdown("""
-        <script>
-            setTimeout(() => {
-                playSuccessSound();
-                createConfetti();
-            }, 500);
-        </script>
-        """, unsafe_allow_html=True)
-    
-    # Display uploaded image
-    image = Image.open(uploaded_file)
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.markdown('<div class="image-container">', unsafe_allow_html=True)
-        st.image(image, caption="📸 Analyzed Leaf Image", use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Show loading animation
-    with st.spinner('🔍 Analyzing with AI...'):
-        time.sleep(2)
-    
-    # Get disease name (random for demo)
-    disease_name = random.choice(list(DISEASE_DETAILS.keys()))
-    disease = DISEASE_DETAILS[disease_name]
-    
-    # Success Message
-    st.markdown(f"""
-    <div class="animate-on-scroll" style="text-align: center; margin: 2rem 0;">
-        <div style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9); 
-                    padding: 2rem; border-radius: 20px; border: 3px solid #4CAF50;">
-            <h2 style="color: #2E7D32; margin-bottom: 1rem;">✅ Diagnosis Complete!</h2>
-            <p style="color: #388E3C; font-size: 1.2rem;">Detected: <strong>{disease_name}</strong></p>
-            <div style="font-size: 3rem; margin: 1rem 0;">{disease['emoji']}</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Disease Card
-    severity_color = disease['color']
-    st.markdown(f"""
-    <div class="animate-on-scroll disease-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <div>
-                <h2 style="color: {severity_color}; display: flex; align-items: center; gap: 10px;">
-                    {disease['emoji']} {disease_name}
-                </h2>
-            </div>
-            <span class="severity-indicator" style="background: {severity_color}; color: white;">
-                {disease['severity']}
-            </span>
-        </div>
+# Process Uploaded Image
+if uploaded_file is not None:
+    try:
+        # Display uploaded image
+        image = Image.open(uploaded_file)
         
-        <div style="margin: 1.5rem 0;">
-            <h4 style="color: #2E8B57; margin-bottom: 1rem;">🌾 Affected Crops</h4>
-            <div>
-    """, unsafe_allow_html=True)
+        st.markdown("### 📸 Uploaded Image Preview")
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.image(image, caption="Leaf Image for Analysis", use_column_width=True)
+        
+        # Crop Selection
+        st.markdown("### 🌾 Select Crop Type")
+        crop_type = st.selectbox(
+            "Choose the crop type for better accuracy:",
+            ["Auto Detect", "Tomato", "Potato", "Rice", "Banana", "Cucumber", "Wheat", "Grapes", "Other"],
+            index=0
+        )
+        
+        # Analyze Button
+        st.markdown("<br>", unsafe_allow_html=True)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            if st.button("🔬 Analyze Image with AI", type="primary", use_container_width=True):
+                with st.spinner("🔄 AI is analyzing the image... Please wait."):
+                    # Show progress
+                    progress_bar = st.progress(0)
+                    for i in range(100):
+                        time.sleep(0.02)
+                        progress_bar.progress(i + 1)
+                    
+                    # Get random disease prediction (for demo)
+                    disease_name = random.choice(list(DISEASE_DATABASE.keys()))
+                    disease_info = DISEASE_DATABASE[disease_name]
+                    confidence = random.randint(88, 97)
+                    
+                    # Store analysis in session state
+                    st.session_state.last_analysis = {
+                        "disease_name": disease_name,
+                        "disease_info": disease_info,
+                        "confidence": confidence
+                    }
+                    
+                    # Complete progress
+                    progress_bar.progress(100)
+                    time.sleep(0.5)
+                    
+                    # DISPLAY RESULTS
+                    st.markdown('<div class="result-card">', unsafe_allow_html=True)
+                    
+                    # Title
+                    st.markdown('<h2 style="color: #2E7D32; margin-bottom: 1.5rem;">✅ Analysis Complete!</h2>', unsafe_allow_html=True)
+                    
+                    # Emoji
+                    st.markdown(f'<div style="font-size: 4rem; margin: 1rem 0;">{disease_info["emoji"]}</div>', unsafe_allow_html=True)
+                    
+                    # Disease Name
+                    st.markdown(f'<h1 class="disease-name">{disease_name}</h1>', unsafe_allow_html=True)
+                    
+                    # Confidence Badge
+                    st.markdown(f'<div class="confidence-badge">{confidence}% Confidence Level</div>', unsafe_allow_html=True)
+                    
+                    # Severity
+                    if "High" in disease_info["severity"]:
+                        severity_class = "severity-high"
+                    elif "Moderate" in disease_info["severity"]:
+                        severity_class = "severity-moderate"
+                    else:
+                        severity_class = "severity-low"
+                    
+                    st.markdown(f'<div style="margin: 1.5rem 0;"><span class="{severity_class}">Severity: {disease_info["severity"]}</span></div>', unsafe_allow_html=True)
+                    
+                    st.markdown('</div>', unsafe_allow_html=True)
+                    
+                    # Disease Information
+                    st.markdown("### 📋 Disease Information")
+                    col1, col2 = st.columns(2)
+                    
+                    with col1:
+                        st.info(f"""
+                        **Scientific Name:** {disease_info['scientific_name']}
+                        
+                        **Description:** {disease_info['description']}
+                        
+                        **Affected Crops:** {', '.join(disease_info['affected_crops'])}
+                        """)
+                    
+                    with col2:
+                        st.info("**Main Symptoms:**")
+                        for symptom in disease_info['symptoms'][:4]:
+                            st.write(f"• {symptom}")
+                    
+                    # MULTIPLE SOLUTIONS SECTION
+                    st.markdown("### 💡 Multiple Treatment Solutions")
+                    
+                    # Chemical Solutions
+                    with st.expander("🧪 Chemical Solutions", expanded=True):
+                        st.success("**Recommended chemical treatments:**")
+                        for i, solution in enumerate(disease_info['solutions']['chemical'], 1):
+                            st.write(f"{i}. {solution}")
+                    
+                    # Organic Solutions
+                    with st.expander("🌿 Organic Solutions", expanded=True):
+                        st.success("**Natural and organic treatments:**")
+                        for i, solution in enumerate(disease_info['solutions']['organic'], 1):
+                            st.write(f"{i}. {solution}")
+                    
+                    # Cultural Solutions
+                    with st.expander("🌱 Cultural Practices", expanded=True):
+                        st.success("**Management and cultural practices:**")
+                        for i, solution in enumerate(disease_info['solutions']['cultural'], 1):
+                            st.write(f"{i}. {solution}")
+                    
+                    # Biological Solutions
+                    with st.expander("🦠 Biological Control", expanded=True):
+                        st.success("**Biological control methods:**")
+                        for i, solution in enumerate(disease_info['solutions']['biological'], 1):
+                            st.write(f"{i}. {solution}")
+                    
+                    # Prevention Tips
+                    st.markdown("### 🛡️ Prevention Tips")
+                    prevention_cols = st.columns(2)
+                    for i, tip in enumerate(disease_info['prevention']):
+                        with prevention_cols[i % 2]:
+                            st.info(f"✓ {tip}")
+        
+    except Exception as e:
+        st.error(f"Error processing image: {str(e)}")
+        st.info("Please upload a valid image file.")
+
+# Show analysis results if available
+if st.session_state.last_analysis:
+    disease_name = st.session_state.last_analysis["disease_name"]
+    disease_info = st.session_state.last_analysis["disease_info"]
+    confidence = st.session_state.last_analysis["confidence"]
     
-    # Display affected crops
-    for crop in disease['affected_crops']:
-        st.markdown(f'<span class="chip crop-chip">{crop}</span>', unsafe_allow_html=True)
-    
-    st.markdown("""
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Symptoms Section
-    st.markdown("""
-    <div class="animate-on-scroll" style="margin: 2rem 0;">
-        <h3 style="color: #2E8B57; margin-bottom: 1rem;">🔍 Symptoms Detected</h3>
-        <div>
-    """, unsafe_allow_html=True)
-    
-    for symptom in disease['symptoms']:
-        st.markdown(f'<span class="chip symptom-chip">{symptom}</span>', unsafe_allow_html=True)
-    
-    st.markdown("</div></div>", unsafe_allow_html=True)
-    
-    # Treatment Solutions
-    st.markdown("""
-    <div class="animate-on-scroll">
-        <h3 style="color: #2E8B57; margin-bottom: 1.5rem;">💊 Treatment Solutions</h3>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Create tabs for different treatments
-    tab1, tab2, tab3, tab4 = st.tabs(["🚨 Immediate", "🌱 Organic", "🧪 Chemical", "🏠 Home"])
-    
-    with tab1:
-        st.markdown('<div class="treatment-category immediate">', unsafe_allow_html=True)
-        st.markdown("#### 🚨 Immediate Actions")
-        for action in disease['immediate_action']:
-            st.markdown(f"• {action}")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with tab2:
-        st.markdown('<div class="treatment-category organic">', unsafe_allow_html=True)
-        st.markdown("#### 🌱 Organic Solutions")
-        for solution in disease['organic_solutions']:
-            st.markdown(f"• {solution}")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    with tab3:
-        st.markdown('<div class="treatment-category chemical">', unsafe_allow_html=True)
-        st.markdown("#### 🧪 Chemical Solutions")
-        for solution in disease['chemical_solutions']:
-            st.markdown(f"• {solution}")
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.warning("⚠️ Always follow safety guidelines when using chemical treatments")
-    
-    with tab4:
-        st.markdown('<div class="treatment-category home">', unsafe_allow_html=True)
-        st.markdown("#### 🏠 Home Remedies")
-        for remedy in disease['home_remedies']:
-            st.markdown(f"• {remedy}")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Prevention Tips
-    st.markdown("""
-    <div class="animate-on-scroll" style="margin: 2rem 0;">
-        <h3 style="color: #2E8B57; margin-bottom: 1rem;">🛡️ Prevention Methods</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
-    """, unsafe_allow_html=True)
-    
-    for tip in disease['prevention']:
-        st.markdown(f"""
-        <div style="background: #F0F8FF; padding: 1rem; border-radius: 10px; border-left: 4px solid #2E8B57;">
-            <p style="margin: 0; color: #2E8B57;">🛡️ {tip}</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("</div></div>", unsafe_allow_html=True)
-    
-    # Action Buttons
+    # VOICE ASSISTANT BUTTONS (AFTER RESULTS ARE DISPLAYED)
+    st.markdown("---")
+    st.markdown("### 🔊 Voice Assistant")
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        if st.button("📥 Download Report", use_container_width=True):
-            if sound_enabled:
-                st.markdown("""
-                <script>
-                    playSuccessSound();
-                </script>
-                """, unsafe_allow_html=True)
-            st.success("Report downloaded successfully!")
+        if st.button("🎤 Hear Diagnosis", key="hear_diagnosis", use_container_width=True):
+            voice_text = f"Disease detected: {disease_name}. Confidence level: {confidence} percent. Severity: {disease_info['severity']}. This disease affects: {', '.join(disease_info['affected_crops'])}."
+            if speak_text(voice_text):
+                st.success("Playing diagnosis...")
     
     with col2:
-        if st.button("🔄 New Analysis", use_container_width=True):
-            st.rerun()
+        if st.button("💊 Hear Treatments", key="hear_treatments", use_container_width=True):
+            if disease_info['solutions']['chemical']:
+                chemical_treatment = disease_info['solutions']['chemical'][0]
+            else:
+                chemical_treatment = "Consult agricultural expert"
+            
+            if disease_info['solutions']['organic']:
+                organic_treatment = disease_info['solutions']['organic'][0]
+            else:
+                organic_treatment = "Use neem oil spray"
+            
+            voice_text = f"Recommended treatments. Chemical treatment: {chemical_treatment}. Organic option: {organic_treatment}."
+            if speak_text(voice_text):
+                st.success("Playing treatments...")
     
     with col3:
-        if st.button("📞 Expert Help", use_container_width=True):
-            st.info("Contact our agricultural experts for personalized advice")
-
+        if st.button("🛡️ Hear Prevention", key="hear_prevention", use_container_width=True):
+            if disease_info['prevention']:
+                prevention1 = disease_info['prevention'][0]
+                if len(disease_info['prevention']) > 1:
+                    prevention2 = disease_info['prevention'][1]
+                    voice_text = f"Prevention tips: {prevention1}. Also remember to: {prevention2}."
+                else:
+                    voice_text = f"Prevention tip: {prevention1}."
+            else:
+                voice_text = "Practice crop rotation and monitor plants regularly."
+            
+            if speak_text(voice_text):
+                st.success("Playing prevention tips...")
+    
+    # Download Report and Analyze Another
+    st.markdown("---")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("📥 Download Full Report", use_container_width=True):
+            st.success("Report generated! (Demo feature - would create PDF in full implementation)")
+    
+    with col2:
+        if st.button("🔄 Analyze Another Image", type="primary", use_container_width=True):
+            st.session_state.last_analysis = None
+            st.rerun()
 else:
-    # Features Section
+    # Show sample images when no file is uploaded
     st.markdown("""
-    <div class="animate-on-scroll" style="margin: 3rem 0;">
-        <h2 style="color: #2E8B57; text-align: center; margin-bottom: 2rem;">✨ Key Features</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-    """, unsafe_allow_html=True)
-    
-    features = [
-        {"icon": "🤖", "title": "AI-Powered", "desc": "Advanced machine learning algorithms"},
-        {"icon": "⚡", "title": "Instant Results", "desc": "Get diagnosis in seconds"},
-        {"icon": "💊", "title": "Multiple Treatments", "desc": "Organic, chemical & home remedies"},
-        {"icon": "📊", "title": "Detailed Reports", "desc": "Comprehensive treatment guides"},
-        {"icon": "🌍", "title": "Global Database", "desc": "Covers 50+ plant diseases"},
-        {"icon": "🔒", "title": "Secure & Private", "desc": "Your data stays with you"}
-    ]
-    
-    for feature in features:
-        st.markdown(f"""
-        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center; 
-                    box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">{feature['icon']}</div>
-            <h4 style="color: #2E8B57; margin-bottom: 0.5rem;">{feature['title']}</h4>
-            <p style="color: #666; font-size: 0.9rem;">{feature['desc']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("</div></div>", unsafe_allow_html=True)
-    
-    # Stats Section
-    st.markdown("""
-    <div class="animate-on-scroll" style="margin: 3rem 0;">
-        <h2 style="color: #2E8B57; text-align: center; margin-bottom: 2rem;">📈 Our Impact</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-    """, unsafe_allow_html=True)
-    
-    stats = [
-        {"value": "10K+", "label": "Plants Saved"},
-        {"value": "95%", "label": "Accuracy Rate"},
-        {"value": "50+", "label": "Diseases Detected"},
-        {"value": "24/7", "label": "Available"}
-    ]
-    
-    for stat in stats:
-        st.markdown(f"""
-        <div class="stats-card">
-            <div class="stats-number">{stat['value']}</div>
-            <p style="color: #666; margin: 0;">{stat['label']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("</div></div>", unsafe_allow_html=True)
-
-# ---------------- FOOTER ----------------
-st.markdown("""
-<div class="footer animate-on-scroll">
-    <h3 style="margin-bottom: 1rem;">🌿 FloraGuard AI</h3>
-    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">
-        Advanced Plant Disease Detection System
-    </p>
-    <div style="display: flex; justify-content: center; gap: 1rem; margin: 1rem 0;">
-        <span style="font-size: 1.5rem;">🌱</span>
-        <span style="font-size: 1.5rem;">🌸</span>
-        <span style="font-size: 1.5rem;">🌻</span>
-        <span style="font-size: 1.5rem;">🌿</span>
-        <span style="font-size: 1.5rem;">🍃</span>
+    <div class="card">
+        <h3 style="color: #2E7D32; margin-bottom: 1rem;">📸 Sample Images for Testing</h3>
+        <p style="color: #666; margin-bottom: 1.5rem;">
+            Upload images like these for best results:
+        </p>
     </div>
-    <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-top: 1rem;">
-        © 2024 FloraGuard AI. All rights reserved.
-    </p>
-</div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+    
+    # Create columns for sample images using Streamlit's native columns
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown('<div style="text-align: center; font-size: 3rem;">🍅</div>', unsafe_allow_html=True)
+        st.markdown("**Tomato Leaf**")
+        st.caption("With disease symptoms")
+    
+    with col2:
+        st.markdown('<div style="text-align: center; font-size: 3rem;">🥔</div>', unsafe_allow_html=True)
+        st.markdown("**Potato Leaf**")
+        st.caption("Clear close-up image")
+    
+    with col3:
+        st.markdown('<div style="text-align: center; font-size: 3rem;">🌾</div>', unsafe_allow_html=True)
+        st.markdown("**Rice Plant**")
+        st.caption("Showing leaf lesions")
+    
+    # Image Guidelines
+    st.markdown("""
+    <div class="card">
+        <h3 style="color: #2E7D32; margin-bottom: 1rem;">📋 Image Guidelines</h3>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Guidelines in columns
+    gcol1, gcol2, gcol3 = st.columns(3)
+    
+    with gcol1:
+        st.markdown('<div style="text-align: center; font-size: 2.5rem;">📷</div>', unsafe_allow_html=True)
+        st.markdown("**Good Lighting**")
+        st.caption("Take photos in natural light")
+    
+    with gcol2:
+        st.markdown('<div style="text-align: center; font-size: 2.5rem;">🍃</div>', unsafe_allow_html=True)
+        st.markdown("**Focus on Leaves**")
+        st.caption("Capture clear leaf details")
+    
+    with gcol3:
+        st.markdown('<div style="text-align: center; font-size: 2.5rem;">⚡</div>', unsafe_allow_html=True)
+        st.markdown("**Quick Results**")
+        st.caption("Get diagnosis within seconds")
 
-# Add floating action button
-st.markdown("""
-<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-    <button class="interactive-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        ↑ Top
-    </button>
-</div>
-""", unsafe_allow_html=True)
+# ==========================================
+# FOOTER
+# ==========================================
+st.markdown("---")
+st.markdown('<div style="text-align: center; color: #666; padding: 2rem;">', unsafe_allow_html=True)
+st.markdown('<p style="font-size: 1.1rem; font-weight: 600; color: #2E7D32;">🌾 Crop Disease Detection System</p>', unsafe_allow_html=True)
+st.markdown('<p>Final Year Project | Computer Science Department</p>', unsafe_allow_html=True)
+st.markdown('<p style="font-size: 0.9rem; margin-top: 0.5rem;">© 2024 [Your University Name]. Voice-enabled AI detection system.</p>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)

@@ -1097,26 +1097,29 @@
         <i class="fas fa-robot"></i>
       </div>
       <div class="message-content">
-        ನಮಸ್ಕಾರ! ನಾನು KrishiSiri AI ಸಹಾಯಕ. ನಿಮ್ಮ ಕೃಷಿ ಸಮಸ್ಯೆಗಳು, ಬೆಳೆ ಸಲಹೆ, ರೋಗ ನಿರ್ಣಯ, ಅಥವಾ ಹವಾಮಾನ ಮಾಹಿತಿಗಾಗಿ ನನಗೆ ಕೇಳಿ. ನೀವು ಚಿತ್ರಗಳನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಬಹುದು ಅಥವಾ ನೇರವಾಗಿ ಮಾತನಾಡಬಹುದು!
+        Hello! I am KrishiSiri AI assistant. Ask me about your farming problems, crop advice, disease diagnosis, or weather information. You can upload images or talk directly!
       </div>
     </div>
   </div>
   
   <div class="chatbot-tools">
     <button class="tool-btn" id="voiceChatBtn">
-      <i class="fas fa-microphone"></i> ಧ್ವನಿ ಚಾಟ್
+      <i class="fas fa-microphone"></i> Voice Chat
     </button>
     <button class="tool-btn" id="uploadImageBtn">
-      <i class="fas fa-image"></i> ಚಿತ್ರ ಅಪ್ಲೋಡ್
+      <i class="fas fa-image"></i> Upload Image
     </button>
     <button class="tool-btn" id="clearChatBtn">
-      <i class="fas fa-trash"></i> ಸ್ಪಷ್ಟ ಚಾಟ್
+      <i class="fas fa-trash"></i> Clear Chat
+    </button>
+    <button class="tool-btn" id="quickQuestionsBtn">
+      <i class="fas fa-question-circle"></i> Quick Questions
     </button>
   </div>
   
   <div class="chatbot-input">
     <input type="file" id="imageUpload" class="file-input" accept="image/*">
-    <input type="text" id="chatInput" placeholder="ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಟೈಪ್ ಮಾಡಿ...">
+    <input type="text" id="chatInput" placeholder="Type your question here...">
     <button id="voiceInputBtn" class="chatbot-input-btn">
       <i class="fas fa-microphone"></i>
     </button>
@@ -1146,20 +1149,18 @@
 
 <header class="header">
   <div class="logo">
-
-    
     <div style="height:45px; width:45px; background:#52b788; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-right:10px; color:white;">
       <i class="fas fa-seedling"></i>
     </div>
     <h1>KrishiSiri</h1>
   </div>
   <nav class="navbar" id="navbar">
-    <a href="#home">ಮನೆ</a>
-    <a href="#features">ವೈಶಿಷ್ಟ್ಯಗಳು</a>
-    <a href="#advantages">ಪ್ರಯೋಜನಗಳು</a>
-    <a href="#about">ನಮ್ಮ ಬಗ್ಗೆ</a>
-    <a href="#footer">ಸಂಪರ್ಕ</a>
-    <a href="explore/index.html" class="btn">ಅನುಭವಿಸಿ</a>
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#advantages">Advantages</a>
+    <a href="#about">About Us</a>
+    <a href="#footer">Contact</a>
+    <a href="explore/index.html" class="btn">Explore</a>
   </nav>
   <div class="fas fa-bars" id="menu-btn" onclick="toggleNavbar()"></div>
 </header>
@@ -1168,31 +1169,30 @@
 
 <section class="home" id="home">
   <div class="content">
-    <h1 id="homeTitle" class="animate-fadeInUp">ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಕೃಷಿ ಸಹಾಯಕ</h1>
-    <p id="homeText" class="animate-fadeInUp delay-1">KrishiSiri ಜೊತೆ ಹಸಿರು ಕ್ರಾಂತಿಗೆ ಹೊಸ ಪ್ರಾರಂಭ!</p>
+    <h1 id="homeTitle" class="animate-fadeInUp">Your Smart Agriculture Assistant</h1>
+    <p id="homeText" class="animate-fadeInUp delay-1">A new beginning for the green revolution with KrishiSiri!</p>
 
     
     <div class="farming-words animate-fadeInUp delay-2">
         <div class="word-card">
             <i class="fas fa-seedling"></i>
-            <h4>ಬೆಳೆ ಯೋಜನೆ</h4>
-            <p>ಸರಿಯಾದ ಸಮಯದಲ್ಲಿ<br>ಸರಿಯಾದ ಬೆಳೆ</p>
+            <h4>Crop Planning</h4>
+            <p>Right crop at<br>the right time</p>
         </div>
         <div class="word-card">
             <i class="fas fa-tint"></i>
-            <h4>ನೀರಾವರಿ</h4>
-            <p>ನೀರಿನ ಪರಿಣಾಮಕ<br>ಬಳಕೆ</p>
+            <h4>Irrigation</h4>
+            <p>Efficient use<br>of water</p>
         </div>
         <div class="word-card">
             <i class="fas fa-leaf"></i>
-            <h4>ಸಾವಯವ ಕೃಷಿ</h4>
-            <p>ಪರಿಸರ ಸ್ನೇಹಿ<br>ಕೃಷಿ ಪದ್ಧತಿ</p>
+            <h4>Organic Farming</h4>
+            <p>Environment-friendly<br>farming practice</p>
         </div>
     </div>
     
     <div class="animate-fadeInUp delay-3">
-      <a href="guide/index.html" class="home-btn" target="_blank">ಸ್ಮಾರ್ಟ್ ಕೃಷಿ ಮಾರ್ಗದರ್ಶಿ</a>
-      <a href="explore/index.html" class="home-btn" target="_blank">ಅನ್ವೇಷಿಸಿ</a>
+      <a href="explore/index.html" class="home-btn" target="_blank">Start Exploring</a>
     </div>
   </div>
 </section>
@@ -1200,35 +1200,34 @@
 
 
 <section class="features" id="features">
-  <h1 id="featuresTitle" class="animate-fadeInUp">ವೈಶಿಷ್ಟ್ಯಗಳು</h1>
-  <p id="featuresText" class="animate-fadeInUp delay-1">AI ಮತ್ತು ಡೇಟಾ ವಿಶ್ಲೇಷಣೆ ಆಧಾರಿತ ಕೃಷಿ ಉಪಕರಣಗಳು.</p>
+  <h1 id="featuresTitle" class="animate-fadeInUp">Features</h1>
+  <p id="featuresText" class="animate-fadeInUp delay-1">AI and data analytics based agricultural tools.</p>
   <div class="animate-fadeInUp delay-2">
-    <a href=" https://cpbnasmwkenpjl7p9jj3aw.streamlit.app/" class="buttonn">ಬೆಳೆ ಶಿಫಾರಸು</a>
-    <a href="https://app-app-9tm2jywhwjkbvxa5yiideb.streamlit.app/" class="buttonn">ಸಸ್ಯ ರೋಗ ಪತ್ತೆ</a>
-    <a href="weather-forecast/index.html" class="buttonn">ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ</a>
-    <a href="guide/index.html" class="buttonn">ಸ್ಮಾರ್ಟ್ ಕೃಷಿ ಮಾರ್ಗದರ್ಶಿ</a>
+    <a href=" https://cpbnasmwkenpjl7p9jj3aw.streamlit.app/" class="buttonn">Crop Recommendation</a>
+    <a href="https://atbyqzxbhxdinn9ba4sk8s.streamlit.app/" class="buttonn">Plant Disease Detection</a>
+    <a href="weather-forecast/index.html" class="buttonn">Weather Forecast</a>
+    <a href="guide/index.html" class="buttonn">Smart Farming Guide</a>
   </div>
   
 
   
   <div class="crop-calendar animate-fadeInUp delay-3">
-    <h3>ಬೆಳೆ ಕ್ಯಾಲೆಂಡರ್</h3>
-    <p>ನಿಮ್ಮ ಪ್ರದೇಶಕ್ಕೆ ಅನುಕೂಲಕರ ಬೆಳೆ ಸಮಯವನ್ನು ತಿಳಿಯಿರಿ</p>
+    <h3>Crop Calendar</h3>
+    <p>Know the best crop timing for your region</p>
     <div class="calendar-container">
         <select id="cropSelect" onchange="updateCalendar()">
-            <option value="rice">ಭತ್ತ</option>
-            <option value="ragi">ರಾಗಿ</option>
-            <option value="jowar">ಜೋಳ</option>
-            <option value="maize">ಮೆಕ್ಕೆ ಜೋಳ</option>
-            <option value="sugarcane">ಕಬ್ಬು</option>
-            <option value="cotton">ಹತ್ತಿ</option>
-            <option value="groundnut">ಕಡಲೆಕಾಯಿ</option>
-            <option value="sunflower">ಸೂರ್ಯಕಾಂತಿ</option>
-            <option value="chilli">ಮೆಣಸಿನಕಾಯಿ</option>
-            <option value="turmeric">ಅರಿಶಿನ</option>
-            <option value="onion">ಈರುಳ್ಳಿ</option>
-            <option value="tomato">ಟೊಮ್ಯಾಟೊ</option>
-
+            <option value="rice">Rice</option>
+            <option value="ragi">Ragi (Finger Millet)</option>
+            <option value="jowar">Jowar (Sorghum)</option>
+            <option value="maize">Maize</option>
+            <option value="sugarcane">Sugarcane</option>
+            <option value="cotton">Cotton</option>
+            <option value="groundnut">Groundnut</option>
+            <option value="sunflower">Sunflower</option>
+            <option value="chilli">Chilli</option>
+            <option value="turmeric">Turmeric</option>
+            <option value="onion">Onion</option>
+            <option value="tomato">Tomato</option>
         </select>
         <div id="calendarView" class="calendar-view">
            
@@ -1241,39 +1240,39 @@
 
 
 <section class="weather-forecast" id="weather">
-  <h1 class="animate-fadeInUp">5-ದಿನದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ</h1>
-  <p class="animate-fadeInUp delay-1">ನಿಮ್ಮ ಪ್ರದೇಶದ ಹವಾಮಾನದ ಬಗ್ಗೆ ಮುಂಚಿತವಾಗಿ ತಿಳಿಯಿರಿ</p>
+  <h1 class="animate-fadeInUp">5-Day Weather Forecast</h1>
+  <p class="animate-fadeInUp delay-1">Know your region's weather in advance</p>
   
   <div class="weather-cards">
     <div class="weather-card animate-fadeInUp delay-1">
       <i class="fas fa-sun" style="color: #ffd60a;"></i>
-      <h4>ಇಂದು</h4>
+      <h4>Today</h4>
       <p>28°C</p>
-      <p>ಬೆಳಗಿನ ಚಳಿ</p>
+      <p>Morning Chill</p>
     </div>
     <div class="weather-card animate-fadeInUp delay-2">
       <i class="fas fa-cloud-sun" style="color: #74c69d;"></i>
-      <h4>ನಾಳೆ</h4>
+      <h4>Tomorrow</h4>
       <p>30°C</p>
-      <p>ಭಾಗಶಃ ಮೋಡ</p>
+      <p>Partly Cloudy</p>
     </div>
     <div class="weather-card animate-fadeInUp delay-3">
       <i class="fas fa-cloud-rain" style="color: #457b9d;"></i>
-      <h4>ನಂತರದ ದಿನ</h4>
+      <h4>Day 3</h4>
       <p>26°C</p>
-      <p>ಮಳೆ ಸಾಧ್ಯತೆ</p>
+      <p>Chance of Rain</p>
     </div>
     <div class="weather-card animate-fadeInUp delay-1">
       <i class="fas fa-cloud" style="color: #a8dadc;"></i>
-      <h4>4ನೇ ದಿನ</h4>
+      <h4>Day 4</h4>
       <p>29°C</p>
-      <p>ಮೋಡ ಕವಿದ</p>
+      <p>Cloudy</p>
     </div>
     <div class="weather-card animate-fadeInUp delay-2">
       <i class="fas fa-sun" style="color: #ffd60a;"></i>
-      <h4>5ನೇ ದಿನ</h4>
+      <h4>Day 5</h4>
       <p>31°C</p>
-      <p>ಬಿಸಿಲು</p>
+      <p>Sunny</p>
     </div>
   </div>
 </section>
@@ -1281,22 +1280,22 @@
 
 
 <section class="advantages" id="advantages">
-  <h1 class="animate-fadeInUp">KrishiSiri ಪ್ರಯೋಜನಗಳು</h1>
+  <h1 class="animate-fadeInUp">KrishiSiri Advantages</h1>
   <div class="row">
     <div class="adv-card animate-fadeInUp delay-1">
       <i class="fas fa-cloud-sun"></i>
-      <h3>ನಿಖರ ಮುನ್ಸೂಚನೆ</h3>
-      <p>ಹವಾಮಾನ ಮತ್ತು ರೋಗ ಮಾಹಿತಿ ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ.</p>
+      <h3>Accurate Forecast</h3>
+      <p>Timely weather and disease information.</p>
     </div>
     <div class="adv-card animate-fadeInUp delay-2">
       <i class="fas fa-seedling"></i>
-      <h3>ಉತ್ಪಾದನೆ ಹೆಚ್ಚಳ</h3>
-      <p>AI ಶಿಫಾರಸುಗಳಿಂದ ಬೆಳೆ ಫಲಿತಾಂಶ ಉತ್ತಮಗೊಳಿಸಿ.</p>
+      <h3>Increased Yield</h3>
+      <p>Improve crop results with AI recommendations.</p>
     </div>
     <div class="adv-card animate-fadeInUp delay-3">
       <i class="fas fa-leaf"></i>
-      <h3>ಪರಿಸರ ಸ್ನೇಹಿ</h3>
-      <p>ಸಾಧನ ಬಳಕೆಯನ್ನು ಕಡಿಮೆ ಮಾಡಿ ಮತ್ತು ತಿರುಗುಪ್ರವೃತ್ತಿ ಬೆಳೆಸಿರಿ.</p>
+      <h3>Eco-Friendly</h3>
+      <p>Reduce chemical usage and promote crop rotation.</p>
     </div>
   </div>
 </section>
@@ -1304,30 +1303,28 @@
 
 
 <section class="about" id="about">
-  <h1 class="animate-fadeInUp">ನಮ್ಮ ಬಗ್ಗೆ</h1>
+  <h1 class="animate-fadeInUp">About Us</h1>
   <div class="box-container">
     <div class="box animate-fadeInUp delay-1">
-   
-      
       <img src="images/pallavi.jpg" alt="Pallavi" style="height:120px; width:120px; border-radius:50%; object-fit:cover; margin:0 auto 15px; border:3px solid #52b788;">
-      <h3>ಪಲ್ಲವಿ ವಿನಾಯಕ ಬೆಲಗುಂಬ್ಕರ್</h3>
-      <p>B.E ಕಂಪ್ಯೂಟರ್ ಸೈನ್ಸ್</p>
+      <h3>Pallavi Vinayak Belgumkar</h3>
+      <p>B.E Computer Science</p>
       <p>9448068525</p>
       <p>pbelgumkar@gmail.com</p>
       <p>github.com/pallavi</p>
     </div>
     <div class="box animate-fadeInUp delay-2">
       <img src="images/megha.jpg" alt="Meghana" style="height:120px; width:120px; border-radius:50%; object-fit:cover; margin:0 auto 15px; border:3px solid #52b788;">
-      <h3>ಮೇಘನಾ ವಿ ಸ್ವಾಮಿ</h3>
-      <p>B.E ಕಂಪ್ಯೂಟರ್ ಸೈನ್ಸ್</p>
+      <h3>Meghana V Swamy</h3>
+      <p>B.E Computer Science</p>
       <p>9035580041</p>
       <p>meghanaswamy13@gmail.com</p>
       <p>https://github.com/meghana-arch</p>
     </div>
     <div class="box animate-fadeInUp delay-3">
       <img src="images/triv.jpg" alt="Triveni" style="height:120px; width:120px; border-radius:50%; object-fit:cover; margin:0 auto 15px; border:3px solid #52b788;">
-      <h3>ತ್ರಿವೇಣಿ ಕಮಾರ್</h3>
-      <p>B.E ಕಂಪ್ಯೂಟರ್ ಸೈನ್ಸ್</p>
+      <h3>Triveni Kumar</h3>
+      <p>B.E Computer Science</p>
       <p>9148311073</p>
       <p>trivenikammar65@gmail.com</p>
       <p>https://github.com/Triveni-Kammar/</p>
@@ -1338,8 +1335,8 @@
 
 
 <footer class="footer" id="footer">
-  <p>📞 ಸಂಪರ್ಕಿಸಿ: ಪಲ್ಲವಿ | ಮೇಘನಾ | ತ್ರಿವೇಣಿ</p>
-  <div class="credit">© 2025 <span>KrishiSiri</span> | ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ</div>
+  <p>📞 Contact: Pallavi | Meghana | Triveni</p>
+  <div class="credit">© 2025 <span>KrishiSiri</span> | All Rights Reserved</div>
 </footer>
 
 
@@ -1347,702 +1344,782 @@
 <div class="loader" id="pageLoader"></div>
 
 <script>
-
-
-
-let isListening = false;
-let recognition = null;
-let voiceEnabled = false;
-
-
-function initChatbot() {
-  const chatbotToggle = document.getElementById('chatbotToggle');
-  const chatbotContainer = document.getElementById('chatbotContainer');
-  const chatbotClose = document.getElementById('chatbotClose');
-  const sendMessageBtn = document.getElementById('sendMessageBtn');
-  const chatInput = document.getElementById('chatInput');
-  const uploadImageBtn = document.getElementById('uploadImageBtn');
-  const imageUpload = document.getElementById('imageUpload');
-  const voiceChatBtn = document.getElementById('voiceChatBtn');
-  const clearChatBtn = document.getElementById('clearChatBtn');
-  const voiceInputBtn = document.getElementById('voiceInputBtn');
-  const imageInputBtn = document.getElementById('imageInputBtn');
-
-  
-  
-  chatbotToggle.addEventListener('click', () => {
-    chatbotContainer.classList.toggle('active');
-  });
-
-
-  
-  chatbotClose.addEventListener('click', () => {
-    chatbotContainer.classList.remove('active');
-  });
-
-  sendMessageBtn.addEventListener('click', sendMessage);
-
-
-  
-  chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      sendMessage();
-    }
-  });
-
-
-  
-  uploadImageBtn.addEventListener('click', () => {
-    imageUpload.click();
-  });
-
-  imageUpload.addEventListener('change', handleImageUpload);
-
-
-  
-  voiceChatBtn.addEventListener('click', toggleVoiceChat);
-
-
-  
-  voiceInputBtn.addEventListener('click', toggleVoiceInput);
-
-  
-  imageInputBtn.addEventListener('click', () => {
-    imageUpload.click();
-  });
-
-
-  
-  clearChatBtn.addEventListener('click', clearChat);
-
-
-  
-  initSpeechRecognition();
-}
-
-
-
-function initSpeechRecognition() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  
-  if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.lang = 'kn-IN';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.onresult = (event) => {
-      const speechResult = event.results[0][0].transcript;
-      document.getElementById('chatInput').value = speechResult;
-      sendMessage();
-    };
-
-    recognition.onerror = (event) => {
-      console.error('Speech recognition error', event.error);
-      addBotMessage('ಕ್ಷಮಿಸಿ, ನಾನು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಗುರುತಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.');
-    };
-
-    recognition.onend = () => {
-      isListening = false;
-      updateVoiceButton();
-    };
-  } else {
-    console.warn('Speech recognition not supported in this browser');
-    document.getElementById('voiceChatBtn').disabled = true;
-    document.getElementById('voiceChatBtn').innerHTML = '<i class="fas fa-microphone-slash"></i> ಧ್ವನಿ ಬೆಂಬಲಿಸುವುದಿಲ್ಲ';
-    document.getElementById('voiceInputBtn').disabled = true;
-    document.getElementById('voiceInputBtn').innerHTML = '<i class="fas fa-microphone-slash"></i>';
-  }
-}
-
-
-
-function toggleVoiceChat() {
-  if (!recognition) {
-    addBotMessage('ಕ್ಷಮಿಸಿ, ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಧ್ವನಿ ಗುರುತಿಸುವಿಕೆಯನ್ನು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ.');
-    return;
-  }
-
-  if (isListening) {
-    recognition.stop();
-    isListening = false;
-    document.getElementById('voiceChatBtn').classList.remove('active');
-  } else {
-    recognition.start();
-    isListening = true;
-    document.getElementById('voiceChatBtn').classList.add('active');
-    addBotMessage('ನಾನು ಕೇಳುತ್ತಿದ್ದೇನೆ... ದಯವಿಟ್ಟು ಮಾತನಾಡಿ.');
-  }
-  
-  updateVoiceButton();
-}
-
-
-
-function toggleVoiceInput() {
-  if (!recognition) {
-    addBotMessage('ಕ್ಷಮಿಸಿ, ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಧ್ವನಿ ಗುರುತಿಸುವಿಕೆಯನ್ನು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ.');
-    return;
-  }
-
-  if (isListening) {
-    recognition.stop();
-    isListening = false;
-    document.getElementById('voiceInputBtn').classList.remove('active');
-  } else {
-    recognition.start();
-    isListening = true;
-    document.getElementById('voiceInputBtn').classList.add('active');
-    addBotMessage('ನಾನು ಕೇಳುತ್ತಿದ್ದೇನೆ... ದಯವಿಟ್ಟು ಮಾತನಾಡಿ.');
-  }
-  
-  updateVoiceButton();
-}
-
-
-
-function updateVoiceButton() {
-  const voiceChatBtn = document.getElementById('voiceChatBtn');
-  const voiceInputBtn = document.getElementById('voiceInputBtn');
-  
-  if (isListening) {
-    voiceChatBtn.innerHTML = '<i class="fas fa-microphone-slash"></i> ನಿಲ್ಲಿಸಿ';
-    voiceChatBtn.style.background = '#e74c3c';
-    voiceChatBtn.style.color = 'white';
-    
-    voiceInputBtn.style.background = '#e74c3c';
-    voiceInputBtn.style.color = 'white';
-  } else {
-    voiceChatBtn.innerHTML = '<i class="fas fa-microphone"></i> ಧ್ವನಿ ಚಾಟ್';
-    voiceChatBtn.style.background = '';
-    voiceChatBtn.style.color = '';
-    
-    voiceInputBtn.style.background = '';
-    voiceInputBtn.style.color = '';
-  }
-}
-
-
-
-function handleImageUpload(event) {
-  const file = event.target.files[0];
-  if (file) {
-    if (file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        addUserMessage('', e.target.result);
-        // Simulate AI response for image analysis
-        setTimeout(() => {
-          addBotMessage('ಧನ್ಯವಾದಗಳು! ನಾನು ಈ ಚಿತ್ರವನ್ನು ವಿಶ್ಲೇಷಿಸುತ್ತಿದ್ದೇನೆ... ಇದು ಸಸ್ಯ ರೋಗದ ಲಕ್ಷಣಗಳನ್ನು ತೋರಿಸುತ್ತದೆ. ಸೂಚನೆ: ಸೂಕ್ತವಾದ ಕೀಟನಾಶಕಗಳನ್ನು ಬಳಸಿ ಮತ್ತು ಸಸ್ಯಗಳನ್ನು ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ.');
-        }, 1500);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      addBotMessage('ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಚಿತ್ರ ಫೈಲ್ ಅನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ (JPG, PNG, ಇತ್ಯಾದಿ).');
-    }
-  }
-
-  
-  event.target.value = '';
-}
-
-
-
-function sendMessage() {
-  const chatInput = document.getElementById('chatInput');
-  const message = chatInput.value.trim();
-  
-  if (message) {
-    addUserMessage(message);
-    chatInput.value = '';
-    
-  
-    
-    setTimeout(() => {
-      generateAIResponse(message);
-    }, 1000);
-  }
-}
-
-
-function addUserMessage(message, imageUrl = null) {
-  const messagesContainer = document.getElementById('chatbotMessages');
-  const messageDiv = document.createElement('div');
-  messageDiv.className = 'message user';
-  
-  let content = `
-    <div class="message-avatar">
-      <i class="fas fa-user"></i>
-    </div>
-    <div class="message-content">
-      ${message}
-  `;
-  
-  if (imageUrl) {
-    content += `<img src="${imageUrl}" alt="Uploaded image" class="uploaded-image">`;
-  }
-  
-  content += `</div>`;
-  messageDiv.innerHTML = content;
-  messagesContainer.appendChild(messageDiv);
-  scrollToBottom();
-}
-
-
-
-function addBotMessage(message) {
-  const messagesContainer = document.getElementById('chatbotMessages');
-  const messageDiv = document.createElement('div');
-  messageDiv.className = 'message bot';
-  messageDiv.innerHTML = `
-    <div class="message-avatar">
-      <i class="fas fa-robot"></i>
-    </div>
-    <div class="message-content">${message}</div>
-  `;
-  messagesContainer.appendChild(messageDiv);
-  scrollToBottom();
-  
- 
-  
-  if (voiceEnabled) {
-    speakText(message);
-  }
-}
-
-
-
-function scrollToBottom() {
-  const messagesContainer = document.getElementById('chatbotMessages');
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-
-
-function clearChat() {
-  const messagesContainer = document.getElementById('chatbotMessages');
-
-  
-  while (messagesContainer.children.length > 1) {
-    messagesContainer.removeChild(messagesContainer.lastChild);
-  }
-  addBotMessage('ಚಾಟ್ ಇತಿಹಾಸವನ್ನು ಸ್ಪಷ್ಟಗೊಳಿಸಲಾಗಿದೆ. ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?');
-}
-
-
-
-function generateAIResponse(userMessage) {
-  const lowerMessage = userMessage.toLowerCase();
-  let response = '';
-
-
-  
-  if (lowerMessage.includes('ಹವಾಮಾನ') || lowerMessage.includes('ಮಳೆ') || lowerMessage.includes('ವಾತಾವರಣ')) {
-    response = 'ನಿಮ್ಮ ಪ್ರದೇಶದ ಪ್ರಸ್ತುತ ಹವಾಮಾನ: 28°C, ಸಾಧಾರಣ ತೇವಾಂಶ. ಮುಂದಿನ 3 ದಿನಗಳಲ್ಲಿ ಮಳೆಯ ಸಾಧ್ಯತೆ ಇದೆ. ಮುಂದಿನ 5 ದಿನಗಳ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ: ಇಂದು - 28°C, ನಾಳೆ - 30°C, ನಂತರದ ದಿನ - 26°C, 4ನೇ ದಿನ - 29°C, 5ನೇ ದಿನ - 31°C.';
-  } 
- 
-  
-  else if (lowerMessage.includes('ನಮಸ್ಕಾರ') || lowerMessage.includes('ಹಲೋ') || lowerMessage.includes('ಹೇ')) {
-    response = 'ನಮಸ್ಕಾರ! ನಾನು KrishiSiri AI ಸಹಾಯಕ. ನಿಮ್ಮ ಕೃಷಿ ಸಮಸ್ಯೆಗಳು, ಬೆಳೆ ಸಲಹೆ, ರೋಗ ನಿರ್ಣಯ, ಅಥವಾ ಹವಾಮಾನ ಮಾಹಿತಿಗಾಗಿ ನನಗೆ ಕೇಳಿ.';
-  } else if (lowerMessage.includes('ಬೆಳೆ') && lowerMessage.includes('ಸಲಹೆ')) {
-    response = 'ಬೆಳೆ ಶಿಫಾರಸುಗಳಿಗಾಗಿ, ನಿಮ್ಮ ಮಣ್ಣಿನ ಪ್ರಕಾರ, ಹವಾಮಾನ ಮತ್ತು ನೀರಿನ ಲಭ್ಯತೆಯನ್ನು ಪರಿಗಣಿಸಬೇಕು. ಕನ್ನಡ ಭಾಷೆಯಲ್ಲಿ ನಾನು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಬಹುದು. ನಿಮ್ಮ ಪ್ರದೇಶ ಮತ್ತು ಮಣ್ಣಿನ ಬಗ್ಗೆ ಹೆಚ್ಚಿನ ವಿವರ ನೀಡಿ.';
-  } else if (lowerMessage.includes('ರೋಗ') || lowerMessage.includes('ಕೀಟ')) {
-    response = 'ಸಸ್ಯ ರೋಗಗಳು ಮತ್ತು ಕೀಟಗಳ ನಿಯಂತ್ರಣಕ್ಕಾಗಿ, ನೀವು ಸಸ್ಯದ ಚಿತ್ರವನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಬಹುದು. ನಾನು ರೋಗದ ಲಕ್ಷಣಗಳನ್ನು ಗುರುತಿಸಲು ಮತ್ತು ಸೂಕ್ತವಾದ ಚಿಕಿತ್ಸೆಯನ್ನು ಸೂಚಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತೇನೆ.';
-  } else if (lowerMessage.includes('ನೀರು') || lowerMessage.includes('ನೀರಾವರಿ')) {
-    response = 'ನೀರಾವರಿ ನಿರ್ವಹಣೆ ಕೃಷಿಯಲ್ಲಿ ಬಹಳ ಮುಖ್ಯ. ಟಪ್ಪಾವರಿ ವಿಧಾನವು 70% ನೀರು ಉಳಿತಾಯ ಮಾಡುತ್ತದೆ. ನಿಮ್ಮ ಬೆಳೆ ಮತ್ತು ಮಣ್ಣಿನ ಪ್ರಕಾರಕ್ಕೆ ಅನುಗುಣವಾದ ನೀರಾವರಿ ವಿಧಾನವನ್ನು ನಾನು ಸೂಚಿಸಬಹುದು.';
-  } else if (lowerMessage.includes('ಗೊಬ್ಬರ') || lowerMessage.includes('ಎರೆ')) {
-    response = 'ಗೊಬ್ಬರ ನಿರ್ವಹಣೆ ಬೆಳೆ ಉತ್ಪಾದನೆಯಲ್ಲಿ ಪ್ರಮುಖ ಪಾತ್ರ ವಹಿಸುತ್ತದೆ. ಸಾವಯವ ಗೊಬ್ಬರಗಳು ದೀರ್ಘಕಾಲೀನ ಮಣ್ಣಿನ ಆರೋಗ್ಯಕ್ಕೆ ಉತ್ತಮ. ನಿಮ್ಮ ಮಣ್ಣಿನ ಪರೀಕ್ಷೆಯ ಆಧಾರದ ಮೇಲೆ ಗೊಬ್ಬರದ ಶಿಫಾರಸುಗಳನ್ನು ನೀಡಬಹುದು.';
-  } else if (lowerMessage.includes('ಧನ್ಯವಾದ') || lowerMessage.includes('ಬೆನ್ನ')) {
-    response = 'ಧನ್ಯವಾದಗಳು! ನಿಮ್ಮ ಕೃಷಿ ಯಶಸ್ಸಿಗಾಗಿ ನಾನು ಯಾವಾಗಲೂ ಇಲ್ಲಿ ಇರುತ್ತೇನೆ. ಇನ್ನಷ್ಟು ಪ್ರಶ್ನೆಗಳಿದ್ದರೆ ಕೇಳಿ.';
-  } else {
-    response = 'ಕ್ಷಮಿಸಿ, ನಾನು ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲಿಲ್ಲ. ನೀವು ಬೆಳೆ ಸಲಹೆ, ಸಸ್ಯ ರೋಗಗಳು, ನೀರಾವರಿ, ಗೊಬ್ಬರ, ಅಥವಾ ಹವಾಮಾನದ ಬಗ್ಗೆ ಕೇಳಬಹುದು.';
-  }
-
-  addBotMessage(response);
-}
-
-
-
-let currentVoiceLanguage = 'kn'; 
-let voices = [];
-let speechSynthesis = window.speechSynthesis;
-
-
-
-const languageMap = {
-  'kn': { code: 'kn-IN', name: 'ಕನ್ನಡ', voice: 'kn-IN' },
-  'en': { code: 'en-US', name: 'English', voice: 'en-US' },
-  'hi': { code: 'hi-IN', name: 'हिन्दी', voice: 'hi-IN' },
-  'ta': { code: 'ta-IN', name: 'தமிழ்', voice: 'ta-IN' },
-  'te': { code: 'te-IN', name: 'తెలుగు', voice: 'te-IN' },
-  'mr': { code: 'mr-IN', name: 'मराठी', voice: 'mr-IN' },
-  'bn': { code: 'bn-IN', name: 'বাংলা', voice: 'bn-IN' },
-  'gu': { code: 'gu-IN', name: 'ગુજરાતી', voice: 'gu-IN' },
-  'pa': { code: 'pa-IN', name: 'ਪੰਜਾਬੀ', voice: 'pa-IN' },
-  'ml': { code: 'ml-IN', name: 'മലയാളം', voice: 'ml-IN' },
-  'ur': { code: 'ur-PK', name: 'اردو', voice: 'ur-PK' }
-};
-
-
-
-function getGoogleTargetLanguage() {
-  try {
-    const cookieEntry = document.cookie.split('; ').find(row => row.startsWith('googtrans='));
-    if (!cookieEntry) return null;
-
-    const cookieVal = decodeURIComponent(cookieEntry.split('=')[1]); // "/kn/en"
-    const parts = cookieVal.split('/').filter(Boolean);              // ["kn","en"]
-    if (parts.length === 0) return null;
-
-  
-    
-    return parts[parts.length - 1].toLowerCase(); // "en"
-  } catch (e) {
-    return null;
-  }
-}
-
-
-
-function updateVoiceLanguageFromTranslate() {
-  const target = getGoogleTargetLanguage();
-  if (target && languageMap[target]) {
-    currentVoiceLanguage = target;
-  }
-}
-
-
-
-setInterval(updateVoiceLanguageFromTranslate, 3000);
-
-
-function loadVoices() {
-  voices = speechSynthesis.getVoices();
-  if (voices.length === 0) {
-    setTimeout(loadVoices, 100);
-  }
-}
-loadVoices();
-if (speechSynthesis.onvoiceschanged !== undefined) {
-  speechSynthesis.onvoiceschanged = loadVoices;
-}
-
-
-function toggleVoice() {
-  voiceEnabled = !voiceEnabled;
-  const voiceToggle = document.getElementById('voiceToggle');
-  const voiceStatus = document.getElementById('voiceStatus');
-  
-  if (voiceEnabled) {
-    voiceToggle.classList.add('active');
-    voiceStatus.textContent = 'AI Voice: ON';
-    speakText('AI voice assistant enabled. Click on any element to hear its description.');
-  } else {
-    voiceToggle.classList.remove('active');
-    voiceStatus.textContent = 'AI Voice: OFF';
-    speechSynthesis.cancel();
-  }
-}
-
-
-function speakText(text, specificLang = null) {
-  if (!voiceEnabled) return;
-
-
-  
-  if (!specificLang) {
-    updateVoiceLanguageFromTranslate();
-  }
-
-  speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-
-  const langCode = specificLang || currentVoiceLanguage;
-  const langInfo = languageMap[langCode] || languageMap['kn'];
-  
-  utterance.lang = langInfo.voice;
-  utterance.rate = 0.9;
-  utterance.pitch = 1.0;
-
-  
-  let candidateVoices = voices.filter(voice => {
-    const vLang = (voice.lang || '').toLowerCase();
-    return vLang.startsWith(langCode);
-  });
-
-
-  
-  let preferredVoices = candidateVoices.filter(voice =>
-    voice.name.toLowerCase().includes('female') ||
-    voice.name.toLowerCase().includes('google') ||
-    voice.name.toLowerCase().includes('samantha') ||
-    voice.name.toLowerCase().includes('karen') ||
-    voice.name.toLowerCase().includes('veena')
-  );
-
-  if (preferredVoices.length > 0) {
-    utterance.voice = preferredVoices[0];
-  } else if (candidateVoices.length > 0) {
-    utterance.voice = candidateVoices[0];
-  } else if (voices.length > 0) {
-   
-    
-    utterance.voice = voices[0];
-  }
-
-  speechSynthesis.speak(utterance);
-}
-
-
-
-function getElementText(element) {
-  if (element.tagName === 'IMG') {
-    return element.alt || 'Image';
-  } else if (element.tagName === 'A') {
-    return element.textContent || 'Link';
-  } else if (element.tagName === 'BUTTON') {
-    return element.textContent || 'Button';
-  } else if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
-    return element.placeholder || element.name || 'Input field';
-  } else {
-    return element.textContent || element.innerText || 'Element';
-  }
-}
-
-
-
-function addVoiceListeners() {
-  const interactiveElements = document.querySelectorAll(
-    'a, button, .home-btn, .buttonn, .word-card, .adv-card, ' +
-    '.weather-card, .box, .calendar-month, #cropSelect, #menu-btn'
-  );
-  
-  interactiveElements.forEach(element => {
-    element.addEventListener('click', function(e) {
-      if (!voiceEnabled) return;
-      e.stopPropagation();
-      const text = getElementText(this);
-      speakText(text);
-    });
-  });
-  
-  const headings = document.querySelectorAll('h1, h2, h3, h4');
-  headings.forEach(heading => {
-    heading.addEventListener('click', function() {
-      if (!voiceEnabled) return;
-      const text = getElementText(this);
-      speakText(text);
-    });
-  });
-}
-
-
-
-
-function updateCalendar() {
-  const crop = document.getElementById('cropSelect').value;
-  const calendarView = document.getElementById('calendarView');
-  
-  let sowingMonths = [];
-  let harvestingMonths = [];
-  
-  
-  if (crop === 'rice') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್'];
-  } else if (crop === 'ragi') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್'];
-  } else if (crop === 'jowar') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್'];
-  } else if (crop === 'maize') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್'];
-  } else if (crop === 'sugarcane') {
-    sowingMonths = ['ಜನವರಿ', 'ಫೆಬ್ರವರಿ'];
-    harvestingMonths = ['ಡಿಸೆಂಬರ್', 'ಜನವರಿ'];
-  } else if (crop === 'cotton') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಡಿಸೆಂಬರ್', 'ಜನವರಿ'];
-  } else if (crop === 'groundnut') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್'];
-  } else if (crop === 'sunflower') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್'];
-  } else if (crop === 'chilli') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್'];
-  } else if (crop === 'turmeric') {
-    sowingMonths = ['ಮೇ', 'ಜೂನ್'];
-    harvestingMonths = ['ಜನವರಿ', 'ಫೆಬ್ರವರಿ'];
-  } else if (crop === 'onion') {
-    sowingMonths = ['ಅಕ್ಟೋಬರ್', 'ನವೆಂಬರ್'];
-    harvestingMonths = ['ಫೆಬ್ರವರಿ', 'ಮಾರ್ಚ್'];
-  } else if (crop === 'tomato') {
-    sowingMonths = ['ಜೂನ್', 'ಜುಲೈ'];
-    harvestingMonths = ['ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್'];
-  }
-  
-  let calendarHTML = '';
-  const allMonths = ['ಜನವರಿ', 'ಫೆಬ್ರವರಿ', 'ಮಾರ್ಚ್', 'ಏಪ್ರಿಲ್', 'ಮೇ', 'ಜೂನ್', 
-                     'ಜುಲೈ', 'ಆಗಸ್ಟ್', 'ಸೆಪ್ಟೆಂಬರ್', 'ಅಕ್ಟೋಬರ್', 'ನವೆಂಬರ್', 'ಡಿಸೆಂಬರ್'];
-  
-  allMonths.forEach(month => {
-    let className = '';
-    if (sowingMonths.includes(month)) {
-      className = 'sowing';
-    } else if (harvestingMonths.includes(month)) {
-      className = 'harvesting';
-    }
-    calendarHTML += `<div class="calendar-month ${className}">${month}</div>`;
-  });
-  
-  calendarView.innerHTML = calendarHTML;
-}
-
-
-function toggleNavbar() {
-  const navbar = document.getElementById('navbar');
-  navbar.classList.toggle('active');
-}
-
-
-
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'kn',
-    includedLanguages: 'en,hi,kn,ta,te,mr,ml,gu,bn,pa,ur,as,or',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google_translate_element');
-}
-
-// Add Google Translate script
-function addGoogleTranslateScript() {
-  const script = document.createElement('script');
-  script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-  document.head.appendChild(script);
-}
-
-// Emergency Alerts
-function showEmergencyAlert(title, message) {
-  // Create alert element if it doesn't exist
-  let alertDiv = document.getElementById('emergencyAlert');
-  if (!alertDiv) {
-    alertDiv = document.createElement('div');
-    alertDiv.id = 'emergencyAlert';
-    alertDiv.style.cssText = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #e74c3c;
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      z-index: 2000;
-      display: none;
-      text-align: center;
-    `;
-    alertDiv.innerHTML = `
-      <h3 id="alertTitle"></h3>
-      <p id="alertMessage"></p>
-      <button onclick="closeEmergencyAlert()" style="margin-top: 10px; padding: 5px 15px; background: white; color: #e74c3c; border: none; border-radius: 5px; cursor: pointer;">Close</button>
-    `;
-    document.body.appendChild(alertDiv);
-  }
-  
-  document.getElementById('alertTitle').textContent = title;
-  document.getElementById('alertMessage').textContent = message;
-  alertDiv.style.display = 'block';
-}
-
-function closeEmergencyAlert() {
-  const alertDiv = document.getElementById('emergencyAlert');
-  if (alertDiv) {
-    alertDiv.style.display = 'none';
-  }
-}
-
-// Simulate real-time data updates
-function updateRealTimeData() {
-  const temp = 25 + Math.floor(Math.random() * 10);
-  const moisture = 60 + Math.floor(Math.random() * 20);
-  const price = 2400 + Math.floor(Math.random() * 200);
-  // (elements commented in original code)
-}
-
-// Simulate emergency alert (for demo)
-function simulateEmergencyAlert() {
-  const alerts = [
-    {title: 'ಹವಾಮಾನ ಎಚ್ಚರಿಕೆ', message: 'ಕಡಿಮೆ ವರ್ಷಪಾತದ ಎಚ್ಚರಿಕೆ. ನೀರಿನ ಬಳಕೆಯನ್ನು ಜಾಗರೂಕರಾಗಿ ನಿರ್ವಹಿಸಿ.'},
-    {title: 'ರೋಗ ಎಚ್ಚರಿಕೆ', message: 'ನಿಮ್ಮ ಪ್ರದೇಶದಲ್ಲಿ ಸಸ್ಯ ರೋಗದ ಪ್ರಸರಣ ವರದಿಯಾಗಿದೆ. ನಿಮ್ಮ ಬೆಳೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.'},
-    {title: 'ಬೆಳೆ ಬೆಲೆ ಎಚ್ಚರಿಕೆ', message: 'ಭತ್ತ ಬೆಲೆಗಳು ಕುಸಿದಿವೆ. ಮಾರುಕಟ್ಟೆ ಪರಿಸ್ಥಿತಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.'}
+  // Chatbot Questions Database with Correct Answers
+  const chatbotQuestions = [
+    "What is the best crop for red soil?",
+    "How to control leaf spot disease?",
+    "What is the ideal rainfall for rice cultivation?",
+    "How to improve soil fertility naturally?",
+    "What are the symptoms of nitrogen deficiency?",
+    "How much water does wheat need?",
+    "What is crop rotation?",
+    "How to prevent pest attacks organically?",
+    "When to harvest tomatoes?",
+    "What is drip irrigation?",
+    "How to test soil pH?",
+    "What are cover crops?",
+    "How to store grains properly?",
+    "What is precision farming?",
+    "How to control weeds without chemicals?"
   ];
-  
-  const randomAlert = alerts[Math.floor(Math.random() * alerts.length)];
-  showEmergencyAlert(randomAlert.title, randomAlert.message);
-}
 
-// Page load event
-window.addEventListener('load', function() {
-  // Add Google Translate
-  addGoogleTranslateScript();
-  
-  // Initialize crop calendar
-  updateCalendar();
-  
-  // Add voice listeners
-  addVoiceListeners();
-  
-  // Add event listener to voice toggle button
-  document.getElementById('voiceToggle').addEventListener('click', toggleVoice);
-  
-  // Initialize chatbot
-  initChatbot();
-  
-  // Hide loader
-  document.getElementById('pageLoader').style.display = 'none';
-  
-  // Start real-time data updates
-  setInterval(updateRealTimeData, 5000);
-  
-  // Add scroll animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+  // Enhanced AI Responses Database with Correct Answers
+  const aiResponses = {
+    // Soil and Crop Questions
+    "red soil": "Red soil is best suited for crops like groundnut, potato, maize, millets, pulses, and oilseeds. It is rich in iron but poor in nitrogen, phosphorus, and organic matter. For optimal yield, add organic compost and balanced fertilizers.",
+    "best crop for red soil": "In red soil, you can successfully grow: Groundnut, Potato, Maize, Ragi (Finger Millet), Pulses (red gram, green gram), and Oilseeds (sunflower, castor). These crops adapt well to the acidic nature of red soil.",
+    "soil": "Red soil requires crops that tolerate acidity and low fertility. Recommended crops: Groundnut, Potato, Maize, Millet, Pulses. Add lime to reduce acidity and organic matter to improve fertility.",
+    
+    // Disease Control
+    "leaf spot disease": "To control leaf spot disease: 1. Remove infected leaves immediately 2. Avoid overhead watering 3. Apply fungicides like Mancozeb or Chlorothalonil 4. Use neem oil spray for organic control 5. Ensure proper plant spacing for air circulation",
+    "control leaf spot": "Leaf spot management: Remove affected leaves, improve air circulation, water at soil level, apply copper-based fungicides, and practice crop rotation. For organic control, use baking soda spray (1 tbsp per gallon of water).",
+    
+    // Rainfall Requirements
+    "rainfall for rice": "Rice requires 1000-2000 mm of rainfall during its growing season. Ideal distribution: 150-200 mm per month. It needs standing water during initial growth stages (3-5 cm depth).",
+    "rice cultivation rainfall": "Rice grows best with 1000-1500 mm evenly distributed rainfall. Critical periods: Seedling stage (needs flooded conditions), Tillering stage (needs moist soil), Flowering stage (needs adequate water).",
+    
+    // Soil Fertility
+    "improve soil fertility": "Natural ways to improve soil fertility: 1. Add organic compost 2. Use green manure crops 3. Practice crop rotation 4. Apply vermicompost 5. Use biofertilizers 6. Add bone meal or rock phosphate 7. Practice mulching",
+    "soil fertility naturally": "Enhance soil fertility naturally by: Growing leguminous crops (fix nitrogen), Adding farmyard manure, Using cover crops, Applying neem cake, Practicing zero-tillage, and Maintaining soil pH between 6.0-7.0.",
+    
+    // Nutrient Deficiency
+    "nitrogen deficiency": "Symptoms of nitrogen deficiency: Yellowing of older leaves, stunted growth, reduced yield, pale green color throughout plant. Remedy: Apply urea, ammonium sulfate, or organic sources like compost and green manure.",
+    "nitrogen deficiency symptoms": "Signs: Yellowing starts from older leaves, leaves become pale green to yellow, reduced plant growth, smaller leaves. Treatment: Apply 50-100 kg urea per acre or use leguminous cover crops.",
+    
+    // Water Requirements
+    "water for wheat": "Wheat needs 450-650 mm of water throughout its growth cycle. Critical stages: Crown root initiation (20-25 DAS), Tillering (45-50 DAS), Flowering (60-70 DAS). Apply irrigation at these stages for best yield.",
+    "wheat water needs": "Wheat requires 4-6 irrigations of 5-7 cm depth each. Total water requirement: 400-500 mm. Most critical irrigation: CRI stage (20-25 days after sowing) and flowering stage.",
+    
+    // Crop Rotation
+    "crop rotation": "Crop rotation means growing different crops in sequence on the same land. Benefits: Breaks pest cycles, improves soil fertility, reduces erosion, controls weeds. Example: Rice-Wheat-Pulse or Maize-Wheat-Soybean rotation.",
+    "what is crop rotation": "Crop rotation is alternating different crop species in the same field over time. Example pattern: Legume-Cereal-Root crop. This maintains soil health, controls diseases, and improves yield by 10-25%.",
+    
+    // Pest Control
+    "prevent pest attacks organically": "Organic pest control: 1. Use neem oil spray 2. Plant marigolds as companion crops 3. Apply garlic-chili spray 4. Use diatomaceous earth 5. Introduce beneficial insects 6. Practice crop rotation 7. Use yellow sticky traps",
+    "organic pest control": "Natural pest management: Neem seed kernel extract (5%), Cow urine spray (10%), Trichoderma application, Bird perches in fields, Light traps, and Botanical pesticides like pyrethrum.",
+    
+    // Harvesting
+    "harvest tomatoes": "Tomatoes are ready for harvest 60-90 days after transplanting. Signs: Uniform red color, firm texture, easy separation from stem. Harvest in morning, avoid harvesting in rain, and store at 12-15°C.",
+    "when to harvest tomatoes": "Harvest tomatoes when fully colored but firm. For fresh market: fully ripe. For transport: breaker stage (pink). For seed saving: fully ripe on plant. Best time: Early morning when cool.",
+    
+    // Irrigation
+    "drip irrigation": "Drip irrigation delivers water directly to plant roots through emitters. Benefits: Saves 30-70% water, reduces weed growth, prevents leaf diseases, allows fertigation. Components: Pump, filters, mainline, submain, drippers.",
+    "what is drip irrigation": "Drip irrigation is a micro-irrigation system that applies water slowly to the soil. Advantages: 90% efficiency, reduces waterlogging, saves fertilizer, works on slopes. Suitable for: Fruits, vegetables, plantation crops.",
+    
+    // Soil Testing
+    "test soil pH": "Soil pH testing methods: 1. pH meter (most accurate) 2. Litmus paper 3. Chemical test kits 4. Vinegar-baking soda test 5. Professional lab analysis. Ideal pH: 6.0-7.5 for most crops.",
+    "soil pH test": "To test soil pH: Take soil sample from 15-20 cm depth, mix with distilled water, use pH strip or meter. Acidic soil (pH<6): add lime. Alkaline soil (pH>7.5): add gypsum or sulfur.",
+    
+    // Cover Crops
+    "cover crops": "Cover crops protect soil between main crops. Examples: Clover, Rye, Vetch, Mustard, Cowpea. Benefits: Prevents erosion, adds organic matter, fixes nitrogen, suppresses weeds, improves soil structure.",
+    "what are cover crops": "Cover crops are grown to cover soil rather than for harvest. Types: Legumes (fix nitrogen), Grasses (prevent erosion), Brassicas (biofumigants). They improve soil health and subsequent crop yield.",
+    
+    // Grain Storage
+    "store grains properly": "Proper grain storage: 1. Dry to 12-14% moisture 2. Clean thoroughly 3. Use airtight containers 4. Add neem leaves or ash 5. Store in cool, dry place 6. Use PICS bags for hermetic storage 7. Regular inspection",
+    "grain storage": "Grain storage requirements: Moisture <14%, Temperature <25°C, Clean storage area, Rodent-proof bins, Regular monitoring. Traditional methods: Neem leaves, ash lining, sun drying every 2-3 months.",
+    
+    // Precision Farming
+    "precision farming": "Precision farming uses GPS, sensors, drones to optimize inputs. Benefits: 20-30% input savings, higher yields, reduced environmental impact. Tools: Soil sensors, drones, variable rate technology, yield monitors.",
+    "what is precision farming": "Precision agriculture applies exact inputs (water, fertilizer) where and when needed. Technologies: GIS mapping, remote sensing, auto-steering, yield mapping. Increases efficiency by 25-40%.",
+    
+    // Weed Control
+    "control weeds without chemicals": "Non-chemical weed control: 1. Mulching (organic or plastic) 2. Manual weeding 3. Flaming 4. Solarization 5. Crop rotation 6. Cover crops 7. Biological control 8. Stale seedbed technique",
+    "weed control without chemicals": "Organic weed management: Use cover crops to suppress weeds, practice intercropping, apply corn gluten meal, use vinegar spray (20% acetic acid), flame weeding, and maintain healthy soil.",
+    
+    // General Responses
+    "hello": "Hello! I'm KrishiSiri AI assistant. How can I help you with farming today? Ask me about crops, soil, pests, weather, or anything agriculture-related!",
+    "hi": "Hi there! I'm here to help with all your agricultural queries. What would you like to know about farming?",
+    "help": "I can help with: Crop selection, Pest control, Soil management, Irrigation, Fertilizer use, Disease diagnosis, Weather information, and Modern farming techniques. Just ask me anything!",
+    "thanks": "You're welcome! I'm always here to help with your farming success. Feel free to ask more questions anytime.",
+    "thank": "You're welcome! Happy farming! Let me know if you need more assistance.",
+    
+    // Weather
+    "weather": "Current weather in your region: 28°C, moderate humidity. Chance of rain in next 3 days. 5-day forecast: Today - 28°C, Tomorrow - 30°C, Day 3 - 26°C, Day 4 - 29°C, Day 5 - 31°C.",
+    "rain": "Rainfall is crucial for agriculture. Average annual rainfall for optimal farming is 600-1000mm. Monitor weather forecasts regularly for better planning.",
+    
+    // Technology
+    "ai": "AI in agriculture helps with crop monitoring, disease detection, yield prediction, and precision farming. It analyzes satellite images, weather data, and soil sensors for better decisions.",
+    "technology": "Modern farming technologies include drones, IoT sensors, automated irrigation, AI-based monitoring, and mobile apps for farm management.",
+    
+    // Market
+    "price": "Crop prices fluctuate based on season, demand, and quality. Monitor local mandi rates, government MSPs, and market trends. Current average prices: Rice ₹25/kg, Wheat ₹22/kg, Tomato ₹30/kg.",
+    "market": "Agricultural markets (mandis) connect farmers with buyers. E-NAM (National Agricultural Market) provides online trading platform across India for better price discovery.",
+    
+    // Government Schemes
+    "scheme": "Government schemes include: PM-KISAN (₹6000/year income support), PMFBY (crop insurance), Soil Health Card, Paramparagat Krishi Vikas Yojana (organic farming), and Kisan Credit Card.",
+    "subsidy": "Subsidies available for: Seeds (50%), Drip irrigation (90%), Greenhouses (50%), Tractors (25-40%), and Crop insurance (premium subsidy). Check with local agriculture department.",
   };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-fadeInUp');
+
+  // Map questions to specific responses
+  const questionResponseMap = {
+    "What is the best crop for red soil?": aiResponses["best crop for red soil"],
+    "How to control leaf spot disease?": aiResponses["leaf spot disease"],
+    "What is the ideal rainfall for rice cultivation?": aiResponses["rainfall for rice"],
+    "How to improve soil fertility naturally?": aiResponses["improve soil fertility"],
+    "What are the symptoms of nitrogen deficiency?": aiResponses["nitrogen deficiency symptoms"],
+    "How much water does wheat need?": aiResponses["water for wheat"],
+    "What is crop rotation?": aiResponses["crop rotation"],
+    "How to prevent pest attacks organically?": aiResponses["prevent pest attacks organically"],
+    "When to harvest tomatoes?": aiResponses["harvest tomatoes"],
+    "What is drip irrigation?": aiResponses["drip irrigation"],
+    "How to test soil pH?": aiResponses["test soil pH"],
+    "What are cover crops?": aiResponses["cover crops"],
+    "How to store grains properly?": aiResponses["store grains properly"],
+    "What is precision farming?": aiResponses["precision farming"],
+    "How to control weeds without chemicals?": aiResponses["control weeds without chemicals"]
+  };
+
+  let isListening = false;
+  let recognition = null;
+  let voiceEnabled = false;
+
+  function initChatbot() {
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const chatInput = document.getElementById('chatInput');
+    const uploadImageBtn = document.getElementById('uploadImageBtn');
+    const imageUpload = document.getElementById('imageUpload');
+    const voiceChatBtn = document.getElementById('voiceChatBtn');
+    const clearChatBtn = document.getElementById('clearChatBtn');
+    const voiceInputBtn = document.getElementById('voiceInputBtn');
+    const imageInputBtn = document.getElementById('imageInputBtn');
+    const quickQuestionsBtn = document.getElementById('quickQuestionsBtn');
+
+    chatbotToggle.addEventListener('click', () => {
+      chatbotContainer.classList.toggle('active');
+    });
+
+    chatbotClose.addEventListener('click', () => {
+      chatbotContainer.classList.remove('active');
+    });
+
+    sendMessageBtn.addEventListener('click', sendMessage);
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
       }
     });
-  }, observerOptions);
-  
-  // Observe all sections
-  document.querySelectorAll('section').forEach(section => {
-    observer.observe(section);
-  });
-});
 
-// Show loader when page is loading
-document.getElementById('pageLoader').style.display = 'block';
+    uploadImageBtn.addEventListener('click', () => {
+      imageUpload.click();
+    });
 
-// Close navbar when clicking on a link (for mobile)
-document.querySelectorAll('.navbar a').forEach(link => {
-  link.addEventListener('click', () => {
-    const navbar = document.getElementById('navbar');
-    if (navbar.classList.contains('active')) {
-      navbar.classList.remove('active');
+    imageUpload.addEventListener('change', handleImageUpload);
+
+    voiceChatBtn.addEventListener('click', toggleVoiceChat);
+
+    voiceInputBtn.addEventListener('click', toggleVoiceInput);
+
+    imageInputBtn.addEventListener('click', () => {
+      imageUpload.click();
+    });
+
+    clearChatBtn.addEventListener('click', clearChat);
+
+    quickQuestionsBtn.addEventListener('click', showQuickQuestions);
+
+    initSpeechRecognition();
+  }
+
+  function showQuickQuestions() {
+    const messagesContainer = document.getElementById('chatbotMessages');
+    
+    // Add bot message
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message bot';
+    messageDiv.innerHTML = `
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <strong>Quick Questions You Can Ask:</strong><br><br>
+        <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+          ${chatbotQuestions.map((q, i) => 
+            `<button class="quick-q-btn" onclick="askQuestion('${q}')" 
+             style="background: #2d6a4f; color: white; border: none; padding: 8px 12px; margin: 2px; border-radius: 15px; font-size: 0.75rem; cursor: pointer; transition: all 0.3s;">
+             ${q}
+            </button>`
+          ).join('')}
+        </div>
+      </div>
+    `;
+    messagesContainer.appendChild(messageDiv);
+    scrollToBottom();
+  }
+
+  function askQuestion(question) {
+    document.getElementById('chatInput').value = question;
+    sendMessage();
+  }
+
+  function initSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onresult = (event) => {
+        const speechResult = event.results[0][0].transcript;
+        document.getElementById('chatInput').value = speechResult;
+        sendMessage();
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error', event.error);
+        addBotMessage('Sorry, I could not recognize your voice. Please try again.');
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        updateVoiceButton();
+      };
+    } else {
+      console.warn('Speech recognition not supported in this browser');
+      document.getElementById('voiceChatBtn').disabled = true;
+      document.getElementById('voiceChatBtn').innerHTML = '<i class="fas fa-microphone-slash"></i> Voice not supported';
+      document.getElementById('voiceInputBtn').disabled = true;
+      document.getElementById('voiceInputBtn').innerHTML = '<i class="fas fa-microphone-slash"></i>';
     }
+  }
+
+  function toggleVoiceChat() {
+    if (!recognition) {
+      addBotMessage('Sorry, voice recognition is not supported in this browser.');
+      return;
+    }
+
+    if (isListening) {
+      recognition.stop();
+      isListening = false;
+      document.getElementById('voiceChatBtn').classList.remove('active');
+    } else {
+      recognition.start();
+      isListening = true;
+      document.getElementById('voiceChatBtn').classList.add('active');
+      addBotMessage('I am listening... Please speak now.');
+    }
+    
+    updateVoiceButton();
+  }
+
+  function toggleVoiceInput() {
+    if (!recognition) {
+      addBotMessage('Sorry, voice recognition is not supported in this browser.');
+      return;
+    }
+
+    if (isListening) {
+      recognition.stop();
+      isListening = false;
+      document.getElementById('voiceInputBtn').classList.remove('active');
+    } else {
+      recognition.start();
+      isListening = true;
+      document.getElementById('voiceInputBtn').classList.add('active');
+      addBotMessage('I am listening... Please speak now.');
+    }
+    
+    updateVoiceButton();
+  }
+
+  function updateVoiceButton() {
+    const voiceChatBtn = document.getElementById('voiceChatBtn');
+    const voiceInputBtn = document.getElementById('voiceInputBtn');
+    
+    if (isListening) {
+      voiceChatBtn.innerHTML = '<i class="fas fa-microphone-slash"></i> Stop';
+      voiceChatBtn.style.background = '#e74c3c';
+      voiceChatBtn.style.color = 'white';
+      
+      voiceInputBtn.style.background = '#e74c3c';
+      voiceInputBtn.style.color = 'white';
+    } else {
+      voiceChatBtn.innerHTML = '<i class="fas fa-microphone"></i> Voice Chat';
+      voiceChatBtn.style.background = '';
+      voiceChatBtn.style.color = '';
+      
+      voiceInputBtn.style.background = '';
+      voiceInputBtn.style.color = '';
+    }
+  }
+
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          addUserMessage('Image uploaded for analysis', e.target.result);
+          setTimeout(() => {
+            const responses = [
+              "Analyzing image... This appears to be a healthy plant with good leaf color and structure. No signs of disease detected.",
+              "Image analysis complete: I detect possible nutrient deficiency. Consider applying balanced fertilizer (NPK 19:19:19).",
+              "This image shows signs of fungal infection (yellow spots with brown margins). Remove affected leaves and apply Mancozeb fungicide.",
+              "Plant appears healthy but may need more sunlight. Ensure at least 6 hours of direct sunlight daily for optimal growth.",
+              "I detect pest damage (chewing marks) in this image. Consider using neem oil spray (5ml per liter) or appropriate organic pesticide."
+            ];
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addBotMessage(randomResponse);
+          }, 2000);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        addBotMessage('Please upload a valid image file (JPG, PNG, etc.).');
+      }
+    }
+    
+    event.target.value = '';
+  }
+
+  function sendMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const message = chatInput.value.trim();
+    
+    if (message) {
+      addUserMessage(message);
+      chatInput.value = '';
+      
+      setTimeout(() => {
+        generateAIResponse(message);
+      }, 800);
+    }
+  }
+
+  function addUserMessage(message, imageUrl = null) {
+    const messagesContainer = document.getElementById('chatbotMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message user';
+    
+    let content = `
+      <div class="message-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="message-content">
+        ${message}
+    `;
+    
+    if (imageUrl) {
+      content += `<img src="${imageUrl}" alt="Uploaded image" class="uploaded-image">`;
+    }
+    
+    content += `</div>`;
+    messageDiv.innerHTML = content;
+    messagesContainer.appendChild(messageDiv);
+    scrollToBottom();
+  }
+
+  function addBotMessage(message) {
+    const messagesContainer = document.getElementById('chatbotMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message bot';
+    messageDiv.innerHTML = `
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">${message}</div>
+    `;
+    messagesContainer.appendChild(messageDiv);
+    scrollToBottom();
+    
+    if (voiceEnabled) {
+      speakText(message);
+    }
+  }
+
+  function scrollToBottom() {
+    const messagesContainer = document.getElementById('chatbotMessages');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function clearChat() {
+    const messagesContainer = document.getElementById('chatbotMessages');
+    
+    while (messagesContainer.children.length > 1) {
+      messagesContainer.removeChild(messagesContainer.lastChild);
+    }
+    addBotMessage('Chat history cleared. How can I help you today?');
+  }
+
+  function generateAIResponse(userMessage) {
+    const lowerMessage = userMessage.toLowerCase().trim();
+    let response = '';
+    
+    // First check if it's a predefined question
+    if (questionResponseMap[userMessage]) {
+      response = questionResponseMap[userMessage];
+    } else {
+      // Check for keywords in the message
+      let matchedKeyword = '';
+      
+      // Check for exact question matches first
+      for (const question of chatbotQuestions) {
+        if (lowerMessage.includes(question.toLowerCase())) {
+          matchedKeyword = question;
+          break;
+        }
+      }
+      
+      if (matchedKeyword && questionResponseMap[matchedKeyword]) {
+        response = questionResponseMap[matchedKeyword];
+      } else {
+        // Check for keywords in aiResponses
+        const keywords = Object.keys(aiResponses);
+        for (const keyword of keywords) {
+          if (lowerMessage.includes(keyword.toLowerCase())) {
+            response = aiResponses[keyword];
+            break;
+          }
+        }
+        
+        // If still no match, check partial matches
+        if (!response) {
+          const words = lowerMessage.split(' ');
+          for (const word of words) {
+            if (word.length > 3) { // Only check meaningful words
+              for (const keyword of keywords) {
+                if (keyword.toLowerCase().includes(word) || word.includes(keyword.toLowerCase())) {
+                  response = aiResponses[keyword];
+                  break;
+                }
+              }
+              if (response) break;
+            }
+          }
+        }
+        
+        // If still no response, provide a helpful suggestion
+        if (!response) {
+          response = "I understand you're asking about: \"" + userMessage + "\". For more specific advice, please ask about:\n• Crop selection for your soil type\n• Pest or disease symptoms you're seeing\n• Irrigation requirements for specific crops\n• Soil testing and improvement methods\n• Government schemes and subsidies\nOr try one of the quick questions from the menu!";
+        }
+      }
+    }
+    
+    addBotMessage(response);
+  }
+
+  let currentVoiceLanguage = 'en';
+  let voices = [];
+  let speechSynthesis = window.speechSynthesis;
+
+  const languageMap = {
+    'en': { code: 'en-US', name: 'English', voice: 'en-US' },
+    'hi': { code: 'hi-IN', name: 'हिन्दी', voice: 'hi-IN' },
+    'kn': { code: 'kn-IN', name: 'ಕನ್ನಡ', voice: 'kn-IN' },
+    'ta': { code: 'ta-IN', name: 'தமிழ்', voice: 'ta-IN' },
+    'te': { code: 'te-IN', name: 'తెలుగు', voice: 'te-IN' },
+    'mr': { code: 'mr-IN', name: 'मराठी', voice: 'mr-IN' },
+    'bn': { code: 'bn-IN', name: 'বাংলা', voice: 'bn-IN' },
+    'gu': { code: 'gu-IN', name: 'ગુજરાતી', voice: 'gu-IN' },
+    'pa': { code: 'pa-IN', name: 'ਪੰਜਾਬੀ', voice: 'pa-IN' },
+    'ml': { code: 'ml-IN', name: 'മലയാളം', voice: 'ml-IN' }
+  };
+
+  function getGoogleTargetLanguage() {
+    try {
+      const cookieEntry = document.cookie.split('; ').find(row => row.startsWith('googtrans='));
+      if (!cookieEntry) return null;
+
+      const cookieVal = decodeURIComponent(cookieEntry.split('=')[1]);
+      const parts = cookieVal.split('/').filter(Boolean);
+      if (parts.length === 0) return null;
+
+      return parts[parts.length - 1].toLowerCase();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function updateVoiceLanguageFromTranslate() {
+    const target = getGoogleTargetLanguage();
+    if (target && languageMap[target]) {
+      currentVoiceLanguage = target;
+    }
+  }
+
+  setInterval(updateVoiceLanguageFromTranslate, 3000);
+
+  function loadVoices() {
+    voices = speechSynthesis.getVoices();
+    if (voices.length === 0) {
+      setTimeout(loadVoices, 100);
+    }
+  }
+  loadVoices();
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = loadVoices;
+  }
+
+  function toggleVoice() {
+    voiceEnabled = !voiceEnabled;
+    const voiceToggle = document.getElementById('voiceToggle');
+    const voiceStatus = document.getElementById('voiceStatus');
+    
+    if (voiceEnabled) {
+      voiceToggle.classList.add('active');
+      voiceStatus.textContent = 'AI Voice: ON';
+      speakText('AI voice assistant enabled. Click on any element to hear its description.');
+    } else {
+      voiceToggle.classList.remove('active');
+      voiceStatus.textContent = 'AI Voice: OFF';
+      speechSynthesis.cancel();
+    }
+  }
+
+  function speakText(text, specificLang = null) {
+    if (!voiceEnabled) return;
+
+    if (!specificLang) {
+      updateVoiceLanguageFromTranslate();
+    }
+
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    const langCode = specificLang || currentVoiceLanguage;
+    const langInfo = languageMap[langCode] || languageMap['en'];
+    
+    utterance.lang = langInfo.voice;
+    utterance.rate = 0.9;
+    utterance.pitch = 1.0;
+
+    let candidateVoices = voices.filter(voice => {
+      const vLang = (voice.lang || '').toLowerCase();
+      return vLang.startsWith(langCode);
+    });
+
+    let preferredVoices = candidateVoices.filter(voice =>
+      voice.name.toLowerCase().includes('female') ||
+      voice.name.toLowerCase().includes('google') ||
+      voice.name.toLowerCase().includes('samantha') ||
+      voice.name.toLowerCase().includes('karen')
+    );
+
+    if (preferredVoices.length > 0) {
+      utterance.voice = preferredVoices[0];
+    } else if (candidateVoices.length > 0) {
+      utterance.voice = candidateVoices[0];
+    } else if (voices.length > 0) {
+      utterance.voice = voices[0];
+    }
+
+    speechSynthesis.speak(utterance);
+  }
+
+  function getElementText(element) {
+    if (element.tagName === 'IMG') {
+      return element.alt || 'Image';
+    } else if (element.tagName === 'A') {
+      return element.textContent || 'Link';
+    } else if (element.tagName === 'BUTTON') {
+      return element.textContent || 'Button';
+    } else if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+      return element.placeholder || element.name || 'Input field';
+    } else {
+      return element.textContent || element.innerText || 'Element';
+    }
+  }
+
+  function addVoiceListeners() {
+    const interactiveElements = document.querySelectorAll(
+      'a, button, .home-btn, .buttonn, .word-card, .adv-card, ' +
+      '.weather-card, .box, .calendar-month, #cropSelect, #menu-btn'
+    );
+    
+    interactiveElements.forEach(element => {
+      element.addEventListener('click', function(e) {
+        if (!voiceEnabled) return;
+        e.stopPropagation();
+        const text = getElementText(this);
+        speakText(text);
+      });
+    });
+    
+    const headings = document.querySelectorAll('h1, h2, h3, h4');
+    headings.forEach(heading => {
+      heading.addEventListener('click', function() {
+        if (!voiceEnabled) return;
+        const text = getElementText(this);
+        speakText(text);
+      });
+    });
+  }
+
+  function updateCalendar() {
+    const crop = document.getElementById('cropSelect').value;
+    const calendarView = document.getElementById('calendarView');
+    
+    let sowingMonths = [];
+    let harvestingMonths = [];
+    
+    if (crop === 'rice') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['September', 'October'];
+    } else if (crop === 'ragi') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['September', 'October'];
+    } else if (crop === 'jowar') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['September', 'October'];
+    } else if (crop === 'maize') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['September', 'October'];
+    } else if (crop === 'sugarcane') {
+      sowingMonths = ['January', 'February'];
+      harvestingMonths = ['December', 'January'];
+    } else if (crop === 'cotton') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['December', 'January'];
+    } else if (crop === 'groundnut') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['September', 'October'];
+    } else if (crop === 'sunflower') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['September', 'October'];
+    } else if (crop === 'chilli') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['September', 'October'];
+    } else if (crop === 'turmeric') {
+      sowingMonths = ['May', 'June'];
+      harvestingMonths = ['January', 'February'];
+    } else if (crop === 'onion') {
+      sowingMonths = ['October', 'November'];
+      harvestingMonths = ['February', 'March'];
+    } else if (crop === 'tomato') {
+      sowingMonths = ['June', 'July'];
+      harvestingMonths = ['September', 'October'];
+    }
+    
+    let calendarHTML = '';
+    const allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 
+                       'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    allMonths.forEach(month => {
+      let className = '';
+      if (sowingMonths.includes(month)) {
+        className = 'sowing';
+      } else if (harvestingMonths.includes(month)) {
+        className = 'harvesting';
+      }
+      calendarHTML += `<div class="calendar-month ${className}">${month}</div>`;
+    });
+    
+    calendarView.innerHTML = calendarHTML;
+  }
+
+  function toggleNavbar() {
+    const navbar = document.getElementById('navbar');
+    navbar.classList.toggle('active');
+  }
+
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi,kn,ta,te,mr,ml,gu,bn,pa',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function addGoogleTranslateScript() {
+    const script = document.createElement('script');
+    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.head.appendChild(script);
+  }
+
+  function showEmergencyAlert(title, message) {
+    let alertDiv = document.getElementById('emergencyAlert');
+    if (!alertDiv) {
+      alertDiv = document.createElement('div');
+      alertDiv.id = 'emergencyAlert';
+      alertDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #e74c3c;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        z-index: 2000;
+        display: none;
+        text-align: center;
+      `;
+      alertDiv.innerHTML = `
+        <h3 id="alertTitle"></h3>
+        <p id="alertMessage"></p>
+        <button onclick="closeEmergencyAlert()" style="margin-top: 10px; padding: 5px 15px; background: white; color: #e74c3c; border: none; border-radius: 5px; cursor: pointer;">Close</button>
+      `;
+      document.body.appendChild(alertDiv);
+    }
+    
+    document.getElementById('alertTitle').textContent = title;
+    document.getElementById('alertMessage').textContent = message;
+    alertDiv.style.display = 'block';
+  }
+
+  function closeEmergencyAlert() {
+    const alertDiv = document.getElementById('emergencyAlert');
+    if (alertDiv) {
+      alertDiv.style.display = 'none';
+    }
+  }
+
+  function simulateEmergencyAlert() {
+    const alerts = [
+      {title: 'Weather Alert', message: 'Low rainfall warning. Manage water usage carefully.'},
+      {title: 'Disease Alert', message: 'Plant disease outbreak reported in your region. Check your crops.'},
+      {title: 'Price Alert', message: 'Rice prices have dropped. Check market conditions.'}
+    ];
+    
+    const randomAlert = alerts[Math.floor(Math.random() * alerts.length)];
+    showEmergencyAlert(randomAlert.title, randomAlert.message);
+  }
+
+  // Page load event
+  window.addEventListener('load', function() {
+    addGoogleTranslateScript();
+    updateCalendar();
+    addVoiceListeners();
+    document.getElementById('voiceToggle').addEventListener('click', toggleVoice);
+    initChatbot();
+    document.getElementById('pageLoader').style.display = 'none';
+    
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fadeInUp');
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
   });
-});
+
+  document.getElementById('pageLoader').style.display = 'block';
+
+  document.querySelectorAll('.navbar a').forEach(link => {
+    link.addEventListener('click', () => {
+      const navbar = document.getElementById('navbar');
+      if (navbar.classList.contains('active')) {
+        navbar.classList.remove('active');
+      }
+    });
+  });
 </script>
 
 </body>
